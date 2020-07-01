@@ -1,0 +1,16 @@
+.page {
+    border-left: 1px solid red;
+    border-right: 1px solid red;
+    max-width: 1280px;
+    min-width: 320px;
+    margin: 0 auto;
+    background: #000000;
+    color: white;
+    font-family: Inter, Arial, sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+}
