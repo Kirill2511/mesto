@@ -1,0 +1,19 @@
+@import url(./__container/popup__container.css);
+@import url(./__close-icon/popup__close-icon.css);
+@import url(./__title/popup__title.css);
+@import url(./__fields/popup__fields.css);
+@import url(./__item/popup__item.css);
+@import url(./__name/popup__name.css);
+@import url(./__about/popup__about.css);
+@import url(./__button/popup__button.css);
+@import url(./_opened/popup_opened.css);
+
+.popup {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  top: 0;
+  left: 0;
+}

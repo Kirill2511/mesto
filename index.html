@@ -11,7 +11,7 @@
 <header class="header">
   <img src="./images/logo.svg" alt="logo" class="header__logo">
 </header>
-<main>
+<main class="content">
   <section class="profile">
     <img src="./images/avatar.jpg" alt="jak-iv" class="profile__avatar">
     <div class="profile__info">
@@ -19,7 +19,7 @@
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__edit-button opacity-button"></button>
       </div>
-      <p class="profile__text">Исследователь океана</p>
+      <p class="profile__subtitle">Исследователь океана</p>
     </div>
     <button class="profile__add-button opacity-button"></button>
   </section>
@@ -28,13 +28,73 @@
       <li class="element">
         <div class="element__rectangle"></div>
         <div class="element__container">
-          <img src="./images/yosemite-valley.jpg" alt="yosemite-valley" class="element__image">
-          <h2 class="element__title">Yosemite Valley</h2>
+          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Karachaevsk" class="element__image">
+          <h2 class="element__title">Карачаевск</h2>
+          <button class="element__heart"></button>
+        </div>
+      </li>
+      <li class="element">
+        <div class="element__rectangle"></div>
+        <div class="element__container">
+          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Mountain Elbrus" class="element__image">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button class="element__heart"></button>
+        </div>
+      </li>
+      <li class="element">
+        <div class="element__rectangle"></div>
+        <div class="element__container">
+          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Dombai" class="element__image">
+          <h2 class="element__title">Домбай</h2>
+          <button class="element__heart"></button>
+        </div>
+      </li>
+      <li class="element">
+        <div class="element__rectangle"></div>
+        <div class="element__container">
+          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Mountain Elbrus" class="element__image">
+          <h2 class="element__title">Гора Эльбрус</h2>
+          <button class="element__heart"></button>
+        </div>
+      </li>
+      <li class="element">
+        <div class="element__rectangle"></div>
+        <div class="element__container">
+          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Dombai" class="element__image">
+          <h2 class="element__title">Домбай</h2>
+          <button class="element__heart"></button>
+        </div>
+      </li>
+      <li class="element">
+        <div class="element__rectangle"></div>
+        <div class="element__container">
+          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Karachaevsk" class="element__image">
+          <h2 class="element__title">Карачаево-Ч...</h2>
           <button class="element__heart"></button>
         </div>
       </li>
     </ul>
   </section>
 </main>
+<footer class="footer">
+  <p class="footer__copyright">© 2020 Mesto Russia</p>
+</footer>
+<div class="popup popup_opened">
+  <form class="popup__container">
+    <img src="./images/close-icon.svg" alt="close" class="popup__close-icon">
+    <h2 class="popup__title">Редактировать профиль</h2>
+    <fieldset class="popup__fields">
+      <label>
+        <input type="text" class="popup__item popup__name" name="name" value="Жак-Ив Кусто" placeholder="Имя" required>
+      </label>
+      <label>
+        <input type="text" class="popup__item popup__about" name="about" value="Исследователь океана"
+               placeholder="Обо мне" required>
+      </label>
+      <input type="submit" class="popup__button" value="Сохранить">
+    </fieldset>
+  </form>
+</div>
+<script src="./script.js"></script>
 </body>
 </html>

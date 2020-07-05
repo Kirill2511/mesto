@@ -2,7 +2,7 @@
 @import url(./__info/profile__info.css);
 @import url(./__title/profile__title.css);
 @import url(./__wrapper/profile__wrapper.css);
-@import url(./__text/profile__text.css);
+@import url(__subtitle/profile__subtitle.css);
 @import url(./__edit-button/profile__edit-button.css);
 @import url(./__add-button/profile__add-button.css);
 
@@ -13,4 +13,19 @@
     padding-top: 40px;
     padding-bottom: 50px;
     margin: 0 auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .profile {
+        padding-right: 48px;
+        padding-left: 48px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .profile {
+        padding-top: 38px;
+        padding-right: 19px;
+        padding-left: 19px;
+    }
 }

@@ -1,0 +1,12 @@
+@import url(./__image/element__image.css);
+@import url(./__title/element__title.css);
+@import url(./__rectangle/element__rectangle.css);
+@import url(./__container/element__container.css);
+@import url(./__heart/element__heart.css);
+
+.element {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  position: relative;
+}
