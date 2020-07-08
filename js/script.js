@@ -1,4 +1,3 @@
-//перепроверил, вроде все работает, и открывает сохраняя данные и если даже сохранить, закрыть и опять открыть
 let content = document.querySelector('.content');
 let formElement = document.querySelector('.popup');
 let editButton = content.querySelector('.profile__edit-button');
@@ -14,9 +13,6 @@ function popupDisplay() {
     formElement.classList.toggle('popup_close')
 }
 
-editButton.addEventListener('click', popupDisplay);
-closeIcon.addEventListener('click', popupDisplay);
-
 function formSubmitHandler(evt) {
     evt.preventDefault();
 
@@ -26,4 +22,11 @@ function formSubmitHandler(evt) {
     popupDisplay();
 }
 
+editButton.addEventListener('click', popupDisplay);
+
+nameInput.value = profileName.textContent;
+aboutInput.value = profileAbout.textContent;
+
 formElement.addEventListener('submit', formSubmitHandler);
+
+closeIcon.addEventListener('click', popupDisplay);
