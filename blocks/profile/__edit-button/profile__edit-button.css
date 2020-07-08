@@ -9,7 +9,6 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px;
-  box-sizing: content-box;
 }
 .profile__edit-button:hover {
   opacity: 0.6;

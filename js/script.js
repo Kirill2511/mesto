@@ -1,3 +1,4 @@
+//перепроверил, вроде все работает, и открывает сохраняя данные и если даже сохранить, закрыть и опять открыть
 let content = document.querySelector('.content');
 let formElement = document.querySelector('.popup');
 let editButton = content.querySelector('.profile__edit-button');
