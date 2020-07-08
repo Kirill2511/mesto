@@ -10,8 +10,8 @@
     display: flex;
     flex-direction: row;
     max-width: 882px;
-    padding-top: 40px;
     margin: 0 auto;
+    padding-top: 40px;
 }
 
 @media screen and (max-width: 1024px) {

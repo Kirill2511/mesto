@@ -17,58 +17,52 @@
     <div class="profile__info">
       <div class="profile__wrapper">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button"></button>
+        <button type="button" class="profile__edit-button"></button>
       </div>
       <p class="profile__subtitle">Исследователь океана</p>
     </div>
-    <button class="profile__add-button"></button>
+    <button type="button" class="profile__add-button"></button>
   </section>
   <section class="elements">
     <ul class="elements__container">
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаевск" class="element__image">
         <div class="element__container">
-          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Karachaevsk" class="element__image">
           <h2 class="element__title">Карачаевск</h2>
           <button class="element__heart"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус" class="element__image">
         <div class="element__container">
-          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Mountain Elbrus" class="element__image">
           <h2 class="element__title">Гора Эльбрус</h2>
           <button class="element__heart"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай" class="element__image">
         <div class="element__container">
-          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Dombai" class="element__image">
           <h2 class="element__title">Домбай</h2>
           <button class="element__heart"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Гора Эльбрус" class="element__image">
         <div class="element__container">
-          <img src="./images/kirill-pershin-1404681-unsplash.jpg" alt="Mountain Elbrus" class="element__image">
           <h2 class="element__title">Гора Эльбрус</h2>
           <button class="element__heart"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Домбай" class="element__image">
         <div class="element__container">
-          <img src="./images/kirill-pershin-1556355-unsplash.jpg" alt="Dombai" class="element__image">
           <h2 class="element__title">Домбай</h2>
           <button class="element__heart"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Карачаево" class="element__image">
         <div class="element__container">
-          <img src="./images/kirill-pershin-1088404-unsplash.jpg" alt="Karachaevsk" class="element__image">
           <h2 class="element__title">Карачаево-Ч...</h2>
           <button class="element__heart"></button>
         </div>
@@ -79,9 +73,9 @@
 <footer class="footer">
   <p class="footer__copyright">© 2020 Mesto Russia</p>
 </footer>
-<div class="popup popup_opened">
-  <form class="popup__container">
-    <img src="./images/close-Icon.svg" alt="close" class="popup__close-icon">
+<div class="popup popup_close">
+  <form name="container" class="popup__container">
+    <button type="button" class="popup__close-icon"></button>
     <h2 class="popup__title">Редактировать профиль</h2>
     <fieldset class="popup__fields">
       <label>
@@ -91,10 +85,10 @@
         <input type="text" class="popup__item popup__about" name="about" value="Исследователь океана"
                placeholder="Обо мне" required>
       </label>
-      <input type="submit" class="popup__button" value="Сохранить">
+      <button type="submit" class="popup__button">Сохранить</button>
     </fieldset>
   </form>
 </div>
-<script src="./script.js"></script>
+<script src="./js/script.js"></script>
 </body>
 </html>

@@ -1,10 +1,10 @@
 .footer__copyright {
-  font-weight: normal;
   font-size: 18px;
+  font-weight: normal;
   line-height: 22px;
-  color: #545454;
   margin: 0;
   padding: 0;
+  color: #545454;
 }
 
 @media screen and (max-width: 425px) {
