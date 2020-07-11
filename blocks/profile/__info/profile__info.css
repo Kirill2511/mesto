@@ -1,6 +1,7 @@
 .profile__info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding-left: 30px;
 }
 
@@ -10,7 +11,7 @@
     }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 767px) {
     .profile__info {
         width: 230px;
         margin-top: 16px;
