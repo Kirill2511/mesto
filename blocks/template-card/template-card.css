@@ -1,0 +1,31 @@
+@import url(./__elements-item/template-card__elements-item.css);
+@import url(./__button-delete/template-card__button-delete.css);
+@import url(./__image/template-card__image.css);
+@import url(./__content/template-card__content.css);
+@import url(./__title/template-card__title.css);
+@import url(./__button_heart/template-card__button_heart.css);
+
+.template-card {
+  display: grid;
+  justify-content: center;
+  max-width: 882px;
+  margin: 0 auto;
+  grid-gap: 18px 21px;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (min-width: 595px) and (max-width:930px) {
+  .template-card {
+    margin: auto;
+    grid-template-columns: repeat(2, 282px);
+    grid-gap: 18px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 595px) {
+  .template-card {
+    max-width: 282px;
+    grid-template-columns: 1fr;
+    column-gap: 20px;
+  }
+}

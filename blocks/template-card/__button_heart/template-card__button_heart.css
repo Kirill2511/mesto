@@ -1,0 +1,20 @@
+.template-card__button_heart {
+  z-index: 100;
+  box-sizing: border-box;
+  width: 21px;
+  height: 19px;
+  margin: 35px 17px 35px 0;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-image: url("../../../images/like.svg");
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+}
+
+.template-card__button_heart:hover {
+  transition: ease-in-out 0.3s;
+  opacity: 0.6;
+}

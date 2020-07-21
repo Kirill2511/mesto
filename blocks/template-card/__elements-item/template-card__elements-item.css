@@ -1,0 +1,9 @@
+.template-card__elements-item {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  max-width: 282px;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
