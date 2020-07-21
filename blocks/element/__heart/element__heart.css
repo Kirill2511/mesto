@@ -1,10 +1,14 @@
 .element__heart {
-  height: 18px;
   width: 21px;
-  margin-top: 6px;
-  margin-right: 15px;
-  background-image: url(../../../images/like.svg);
-  background-color: unset;
-  border: 0;
+  height: 18px;
+  margin-right: 7%;
   padding: 0;
+  border: 0;
+  background-color: unset;
+  background-image: url(../../../images/like.svg);
+}
+
+.element__heart:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }

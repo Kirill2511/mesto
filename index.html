@@ -17,60 +17,54 @@
     <div class="profile__info">
       <div class="profile__wrapper">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button opacity-button"></button>
+        <button class="profile__edit-button" type="button"></button>
       </div>
       <p class="profile__subtitle">Исследователь океана</p>
     </div>
-    <button class="profile__add-button opacity-button"></button>
+    <button class="profile__add-button" type="button"></button>
   </section>
   <section class="elements">
     <ul class="elements__container">
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img alt="Карачаевск" class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg">
         <div class="element__container">
-          <img alt="Карачаевск" class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg">
           <h2 class="element__title">Карачаевск</h2>
-          <button class="element__heart"></button>
+          <button class="element__heart" type="submit"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img alt="Гора Эльбрус" class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg">
         <div class="element__container">
-          <img alt="Гора Эльбрус" class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg">
           <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__heart"></button>
+          <button class="element__heart" type="submit"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img alt="Домбай" class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg">
         <div class="element__container">
-          <img alt="Домбай" class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg">
           <h2 class="element__title">Домбай</h2>
-          <button class="element__heart"></button>
+          <button class="element__heart" type="submit"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img alt="Гора Эльбрус" class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg">
         <div class="element__container">
-          <img alt="Гора Эльбрус" class="element__image" src="./images/kirill-pershin-1404681-unsplash.jpg">
           <h2 class="element__title">Гора Эльбрус</h2>
-          <button class="element__heart"></button>
+          <button class="element__heart" type="submit"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img alt="Домбай" class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg">
         <div class="element__container">
-          <img alt="Домбай" class="element__image" src="./images/kirill-pershin-1556355-unsplash.jpg">
           <h2 class="element__title">Домбай</h2>
-          <button class="element__heart"></button>
+          <button class="element__heart" type="submit"></button>
         </div>
       </li>
       <li class="element">
-        <div class="element__rectangle"></div>
+        <img alt="Карачаево" class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg">
         <div class="element__container">
-          <img alt="Карачаевск" class="element__image" src="./images/kirill-pershin-1088404-unsplash.jpg">
           <h2 class="element__title">Карачаево-Ч...</h2>
-          <button class="element__heart"></button>
+          <button class="element__heart" type="submit"></button>
         </div>
       </li>
     </ul>
@@ -79,19 +73,18 @@
 <footer class="footer">
   <p class="footer__copyright">© 2020 Mesto Russia</p>
 </footer>
-<div class="popup popup_opened">
-  <form class="popup__container">
-    <img alt="close" class="popup__close-icon" src="./images/close-icon.svg">
+<div class="popup popup_close">
+  <form class="popup__container" name="container">
+    <button class="popup__close-icon" type="button"></button>
     <h2 class="popup__title">Редактировать профиль</h2>
     <fieldset class="popup__fields">
-      <label>
-        <input class="popup__item popup__name" name="name" placeholder="Имя" required type="text" value="Жак-Ив Кусто">
+      <label for="name">
+        <input class="popup__item popup__name" id="name" name="name" placeholder="Имя" type="text">
       </label>
-      <label>
-        <input class="popup__item popup__about" name="about" placeholder="Обо мне" required
-               type="text" value="Исследователь океана">
+      <label for="text">
+        <input class="popup__item popup__about" id="text" name="about" placeholder="Обо мне" type="text">
       </label>
-      <input class="popup__button" type="submit" value="Сохранить">
+      <button class="popup__button" type="submit">Сохранить</button>
     </fieldset>
   </form>
 </div>
@@ -105,6 +98,6 @@
     </div>
   </div>
 </template>
-<script src="./script.js"></script>
+<script src="./js/script.js"></script>
 </body>
 </html>

@@ -1,5 +1,22 @@
 .profile__info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding-left: 30px;
+}
+
+@media screen and (max-width: 768px) {
+    .profile__info {
+        width: 310px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .profile__info {
+        width: 230px;
+        margin-top: 16px;
+        margin-right: auto;
+        margin-left: auto;
+        padding-left: 0;
+    }
 }
