@@ -4,16 +4,17 @@
 @import url(./__fields/popup__fields.css);
 @import url(./__item/popup__item.css);
 @import url(./__button/popup__button.css);
+@import url(./__gallery/popup__gallery.css);
+@import url(./__image/popup__image.css);
 
 .popup {
+  display: flex;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, .5);
+  align-items: center;
+  justify-content: center;
 }

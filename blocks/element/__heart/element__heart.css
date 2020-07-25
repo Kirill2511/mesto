@@ -4,11 +4,15 @@
   margin-right: 7%;
   padding: 0;
   border: 0;
+  outline: none;
   background-color: unset;
-  background-image: url(../../../images/like.svg);
+  background-image: url("../../../images/like.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .element__heart:hover {
   cursor: pointer;
+  transition: 350ms;
   opacity: 0.6;
 }
