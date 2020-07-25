@@ -68,7 +68,7 @@ document.addEventListener("click", function (e) {
     aboutImage.textContent = evt.target.parentNode.textContent;
     // Лайк
   } else if (e.target.classList.contains("element__heart")) {
-    evt.target.classList.toggle("element__heart_active");
+    e.target.classList.toggle("element__heart_active");
     // Удаление
   } else if (e.target.classList.contains("element__delete")) {
     cards.removeChild(e.target.closest(".element"));
