@@ -64,8 +64,8 @@ document.addEventListener("click", function (e) {
   } else if (e.target.classList.contains("element__image")) {
     ZoomCard.classList.toggle("popup_opened");
     ZoomCard.classList.toggle("popup_close");
-    Image.src = evt.target.src;
-    aboutImage.textContent = evt.target.parentNode.textContent;
+    Image.src = e.target.src;
+    aboutImage.textContent = e.target.parentNode.textContent;
     // Лайк
   } else if (e.target.classList.contains("element__heart")) {
     e.target.classList.toggle("element__heart_active");

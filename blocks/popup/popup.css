@@ -6,6 +6,7 @@
 @import url(./__button/popup__button.css);
 @import url(./__gallery/popup__gallery.css);
 @import url(./__image/popup__image.css);
+@import url(./__card-about/popup__card-about.css);
 
 .popup {
   display: flex;
