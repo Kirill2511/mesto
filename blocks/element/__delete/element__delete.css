@@ -1,10 +1,10 @@
-.template-card__button-delete {
+.element__delete {
   position: absolute;
   display: block;
-  align-self: flex-end;
   width: 48px;
   height: 20px;
   margin-top: 18px;
+  margin-left: 80%;
   padding: 0;
   cursor: pointer;
   border: none;
@@ -14,7 +14,7 @@
   background-position: center;
 }
 
-.template-card__button-delete:hover {
+.element__delete:hover {
   transition: ease-in-out 0.3s;
   opacity: 0.6;
 }
