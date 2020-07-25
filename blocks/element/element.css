@@ -1,3 +1,4 @@
+@import url(__delete/element__delete.css);
 @import url(./__image/element__image.css);
 @import url(./__title/element__title.css);
 @import url(./__container/element__container.css);
@@ -5,6 +6,7 @@
 
 .element {
   line-height: 0;
+  position: relative;
   width: 100%;
   list-style: none;
 }
