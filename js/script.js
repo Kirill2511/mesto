@@ -43,27 +43,27 @@ const nameInput = document.querySelector(".popup__name");
 const aboutInput = document.querySelector(".popup__about");
 const profileName = document.querySelector(".profile__title");
 const profileAbout = document.querySelector(".profile__subtitle");
-const Image = document.querySelector(".popup__image");
+const image = document.querySelector(".popup__image");
 const aboutImage = document.querySelector(".popup__card-about");
-const Edit = document.querySelector(".popup__edit-profile");
-const AddCard = document.querySelector(".popup__add-card");
-const ZoomCard = document.querySelector(".popup__card-image");
+const edit = document.querySelector(".popup__edit-profile");
+const addCard = document.querySelector(".popup__add-card");
+const zoomCard = document.querySelector(".popup__card-image");
 const formCard = document.querySelector(".popup__fields-card");
 const formElement = document.querySelector(".popup__fields");
 
 document.addEventListener("click", function (e) {
   // Открытие и закрытие по кнопке редактирования профиля
   if (e.target.classList.contains("profile__edit-button")) {
-    Edit.classList.toggle("popup_opened");
-    Edit.classList.toggle("popup_close");
+    edit.classList.toggle("popup_opened");
+    edit.classList.toggle("popup_close");
     // Открытие и закрытие по кнопке добавить
   } else if (e.target.classList.contains("profile__add-button")) {
-    AddCard.classList.toggle("popup_opened");
-    AddCard.classList.toggle("popup_close");
+    addCard.classList.toggle("popup_opened");
+    addCard.classList.toggle("popup_close");
     // Открытие картинки на экран
   } else if (e.target.classList.contains("element__image")) {
-    ZoomCard.classList.toggle("popup_opened");
-    ZoomCard.classList.toggle("popup_close");
+    zoomCard.classList.toggle("popup_opened");
+    zoomCard.classList.toggle("popup_close");
     Image.src = e.target.src;
     aboutImage.textContent = e.target.parentNode.textContent;
     // Лайк
