@@ -34,31 +34,31 @@
   <p class="footer__copyright">© 2020 Mesto Russia</p>
 </footer>
 
-<div class="popup popup__edit-profile">
+<div class="popup popup_edit-profile">
   <div class="popup__container">
     <button class="popup__close-icon popup__close-icon_edit-profile" type="button"></button>
     <h2 class="popup__title">Редактировать профиль</h2>
     <form class="popup__fields">
-      <input class="popup__item popup__name" name="name" placeholder="Имя" type="text">
-      <input class="popup__item popup__about" name="about" placeholder="Обо мне" type="text">
+      <input class="popup__item popup__name" name="name" placeholder="Имя" required type="text">
+      <input class="popup__item popup__about" name="about" placeholder="Обо мне" required type="text">
       <button class="popup__button" type="submit">Сохранить</button>
     </form>
   </div>
 </div>
 
-<div class="popup popup__add-card">
+<div class="popup popup_add-card">
   <div class="popup__container">
     <button class="popup__close-icon popup__close-icon_new-image" type="button"></button>
     <h2 class="popup__title">Новое место</h2>
     <form class="popup__fields popup__fields-card">
-      <input class="popup__item popup__input-name" name="input-name" placeholder="Название" type="text">
-      <input class="popup__item popup__input-url" name="input-url" placeholder="Ссылка на картинку" type="text">
+      <input class="popup__item popup__input-name" name="input-name" placeholder="Название" required type="text">
+      <input class="popup__item popup__input-url" name="input-url" placeholder="Ссылка на картинку" required type="text">
       <button class="popup__button popup__button_add-image" type="submit">Создать</button>
     </form>
   </div>
 </div>
 
-<div class="popup popup__card-image">
+<div class="popup popup_card-image">
   <div class="popup__gallery">
     <img alt="" class="popup__image" src="">
     <p class="popup__card-about"></p>
@@ -68,7 +68,7 @@
 
 <template id="template-card">
   <li class="element">
-    <button class="element__delete" name="Удалить" type="button"></button>
+    <button class="element__delete" name="Удалить" type="submit"></button>
     <img alt="фото пользователя" class="element__image" src="">
     <div class="element__container">
       <h2 class="element__title"></h2>

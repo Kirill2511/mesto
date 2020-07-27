@@ -7,6 +7,8 @@
 .element {
   line-height: 0;
   position: relative;
-  width: 100%;
+  max-width: 284px;
   list-style: none;
+  align-self: center;
+  justify-self: center;
 }

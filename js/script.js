@@ -9,12 +9,11 @@ const profileAbout = document.querySelector('.profile__subtitle')
 
 const image = document.querySelector('.popup__image')
 const aboutImage = document.querySelector('.popup__card-about')
-const edit = document.querySelector('.popup__edit-profile')
-const addCard = document.querySelector('.popup__add-card')
-const zoomCard = document.querySelector('.popup__card-image')
+const edit = document.querySelector('.popup_edit-profile')
+const addCard = document.querySelector('.popup_add-card')
+const zoomCard = document.querySelector('.popup_card-image')
 const formCard = document.querySelector('.popup__fields-card')
 const formElement = document.querySelector('.popup__fields')
-const cardButtonAdd = document.querySelector('.profile__add-button')
 
 const cardTemplate = document.querySelector('#template-card').content
 
@@ -53,7 +52,6 @@ document.addEventListener('click', (e) => {
   }
 })
 
-
 // Изменение имени и описания
 function formSubmitHandler (e) {
   e.preventDefault()
@@ -66,8 +64,10 @@ function formSubmitHandler (e) {
 formElement.addEventListener('submit', formSubmitHandler)
 
 // Открытие по кнопке добавить
-cardButtonAdd.addEventListener('click', () => {
-  addCard.classList.toggle('popup_close')
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('profile__add-button')) {
+    addCard.classList.toggle('popup_close')
+  }
 })
 
 // Открытие картинки на экран
@@ -82,29 +82,14 @@ document.addEventListener('click', (e) => {
 // Добавление карточки
 function addNewCard (e) {
   e.preventDefault()
-  popupClose(image)
-
-
-/*  e.preventDefault()
-  placesList.prepend(createCards({
+  cards.prepend(createCards({
     name: cardTitleInput.value,
     link: cardUrlInput.value
   }))
-  popupClose(image)*/
+  addCard.classList.remove('popup_close')
 }
 
-formElement.addEventListener('submit', addNewCard)
-
-
-// Лайк
-const like = function (e) {
-  e.currentTarget.classList.toggle('element__heart_active')
-}
-
-// Удаление
-const cardDelft = function (e) {
-  e.target.closest('.element').remove()
-}
+formCard.addEventListener('submit', addNewCard)
 
 // Перебор массива
 initialCards.reverse().forEach((data) => {
@@ -115,6 +100,20 @@ initialCards.reverse().forEach((data) => {
 function renderCard (card) {
   cards.prepend(createCards(card))
 }
+
+// Лайк
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('element__heart')) {
+    event.target.classList.toggle('element__heart_active')
+  }
+})
+
+// Удалить карточку
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('element__delete')) {
+    cards.removeChild(event.target.closest('.element'))
+  }
+})
 
 // Создание карточки
 function createCards (initialCards) {
