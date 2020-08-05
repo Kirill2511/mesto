@@ -34,13 +34,22 @@
   <p class="footer__copyright">© 2020 Mesto Russia</p>
 </footer>
 
+
 <div class="popup popup_edit-profile">
   <div class="popup__container">
-    <button class="popup__close-icon popup__close-icon_edit-profile" type="button"></button>
+    <button class="popup__close-icon" type="button"></button>
     <h2 class="popup__title">Редактировать профиль</h2>
-    <form class="popup__fields">
-      <input class="popup__item popup__name" name="name" placeholder="Имя" required type="text">
-      <input class="popup__item popup__about" name="about" placeholder="Обо мне" required type="text">
+    <form action="#" class="popup__fields" method="GET" name="add-profile" novalidate>
+      <label class="popup__label">
+        <input class="popup__item popup__name" id="name-input" maxlength="40" minlength="2" name="name"
+               placeholder="Имя" required type="text">
+        <span class="popup__input-error" id="name-input-error"></span>
+      </label>
+      <label class="popup__label">
+        <input class="popup__item popup__about" id="activity-input" maxlength="200" minlength="2"
+               name="about" placeholder="Обо мне" required type="text">
+        <span class="popup__input-error" id="activity-input-error"></span>
+      </label>
       <button class="popup__button" type="submit">Сохранить</button>
     </form>
   </div>
@@ -48,12 +57,18 @@
 
 <div class="popup popup_add-card">
   <div class="popup__container">
-    <button class="popup__close-icon popup__close-icon_new-image" type="button"></button>
+    <button class="popup__close-icon popup__close" type="button"></button>
     <h2 class="popup__title">Новое место</h2>
-    <form class="popup__fields popup__fields-card">
-      <input class="popup__item popup__input-name" name="input-name" placeholder="Название" required type="text">
-      <input class="popup__item popup__input-url" name="input-url" placeholder="Ссылка на картинку" required type="text">
-      <button class="popup__button popup__button_add-image" type="submit">Создать</button>
+    <form action="#" class="popup__fields popup__fields-card" name="add-card" method="GET" novalidate>
+      <label class="popup__label">
+        <input id="place-input" type="text" class="popup__item popup__input-name" name="place" placeholder="Название" minlength="1" maxlength="30" required>
+        <span id="place-input-error" class="popup__input-error"></span>
+      </label>
+      <label class="popup__label">
+        <input id="link-input" type="url" class="popup__item popup__input-url" name="link" placeholder="Ссылка на картинку" required>
+        <span id="link-input-error" class="popup__input-error"></span>
+      </label>
+      <button class="popup__button popup__button_add-image popup__button_disabled" type="submit">Создать</button>
     </form>
   </div>
 </div>
@@ -62,7 +77,7 @@
   <div class="popup__gallery">
     <img alt="" class="popup__image" src="">
     <p class="popup__card-about"></p>
-    <button class="popup__close-icon" type="submit"></button>
+    <button class="popup__close-icon popup__close" type="submit"></button>
   </div>
 </div>
 
@@ -77,6 +92,7 @@
   </li>
 </template>
 <script src="./js/initial-cards.js"></script>
-<script src="./js/script.js"></script>
+<script src="./js/validate.js"></script>
+<script src="js/index.js"></script>
 </body>
 </html>
