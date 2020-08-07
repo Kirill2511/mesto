@@ -84,7 +84,7 @@ document.querySelector('.profile__add-button').addEventListener('click', (e) => 
 function addNewCard (e) {
   e.preventDefault()
   cards.prepend(
-    createCards({
+    createCard({
       name: cardTitleInput.value,
       link: cardUrlInput.value
     })
@@ -101,11 +101,11 @@ initialCards.reverse().forEach((data) => {
 
 // Рендер карточки
 function renderCard (card) {
-  cards.prepend(createCards(card))
+  cards.prepend(createCard(card))
 }
 
 // Создание карточки
-function createCards (initialCards) {
+function createCard (initialCards) {
   const cardElement = cardTemplate.cloneNode(true)
   const cardImage = cardElement.querySelector('.element__image')
   const cardName = cardElement.querySelector('.element__title')
