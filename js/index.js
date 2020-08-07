@@ -28,23 +28,23 @@ function popupToggle (popup) {
   popup.classList.toggle('popup_opened')
 
   if (popup.classList.contains('popup_opened')) {
-    document.addEventListener('click', closeBackgroundAndIcon)
-    document.addEventListener('keydown', closeEsc)
+    document.addEventListener('click', closePopup)
+    document.addEventListener('keydown', closePopupEsc)
   } else {
-    document.removeEventListener('click', closeBackgroundAndIcon)
-    document.removeEventListener('keydown', closeEsc)
+    document.removeEventListener('click', closePopup)
+    document.removeEventListener('keydown', closePopupEsc)
   }
 }
 
 // Закрыть по крестику и кликом по фону
-function closeBackgroundAndIcon (evt) {
+function closePopup (evt) {
   if (evt.target.classList.contains('popup__close-icon') || evt.target.classList.contains('popup')) {
     popupToggle(evt.target.closest('.popup'))
   }
 }
 
 // Закрыть кнопкой Esc
-function closeEsc (evt) {
+function closePopupEsc (evt) {
   const popupOpened = document.querySelector('.popup_opened')
   if (evt.key === 'Escape' && popupOpened) {
     popupToggle(popupOpened)
