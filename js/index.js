@@ -6,6 +6,9 @@ const popupAboutInput = document.querySelector('.popup__about')
 const popupProfileName = document.querySelector('.profile__title')
 const popupProfileAbout = document.querySelector('.profile__subtitle')
 
+const profileEditButton = document.querySelector('.profile__edit-button')
+const profileAddButton = document.querySelector('.profile__add-button')
+
 const popupImage = document.querySelector('.popup__image')
 const popupAboutImage = document.querySelector('.popup__card-about')
 const popupEditProfile = document.querySelector('.popup_edit-profile')
@@ -24,7 +27,7 @@ const cardUrlInput = document.querySelector('.popup__input-url')
 const arrayInputs = (formElement) => Array.from(formElement.querySelectorAll('.popup__item'))
 
 // Функция открытия и закрытия попата
-function popupToggle (popup) {
+function openOrClosePopup (popup) {
   popup.classList.toggle('popup_opened')
 
   if (popup.classList.contains('popup_opened')) {
@@ -39,7 +42,7 @@ function popupToggle (popup) {
 // Закрыть по крестику и кликом по фону
 function closePopup (evt) {
   if (evt.target.classList.contains('popup__close-icon') || evt.target.classList.contains('popup')) {
-    popupToggle(evt.target.closest('.popup'))
+    openOrClosePopup(evt.target.closest('.popup'))
   }
 }
 
@@ -47,17 +50,17 @@ function closePopup (evt) {
 function closePopupEsc (evt) {
   const popupClose = document.querySelector('.popup_opened')
   if (evt.key === 'Escape' && popupClose) {
-    popupToggle(popupClose)
+    openOrClosePopup(popupClose)
   }
 }
 
 // Открытие по кнопке редактирования профиля
-document.querySelector('.profile__edit-button').addEventListener('click', (e) => {
+profileEditButton.addEventListener('click', (e) => {
   if (e.target.classList.contains('profile__edit-button')) {
     popupNameInput.value = popupProfileName.textContent
     popupAboutInput.value = popupProfileAbout.textContent
     clearError(popupEditProfile)
-    popupToggle(popupEditProfile)
+    openOrClosePopup(popupEditProfile)
     popupButton.classList.remove('popup__button_disabled')
   }
 })
@@ -67,16 +70,16 @@ function formSubmitHandler (e) {
   e.preventDefault()
   popupProfileName.textContent = popupNameInput.value
   popupProfileAbout.textContent = popupAboutInput.value
-  popupToggle(popupEditProfile)
+  openOrClosePopup(popupEditProfile)
 }
 
 // Сохранение имени и описания
 popupFormElement.addEventListener('submit', formSubmitHandler)
 
 // Открытие по кнопке добавить
-document.querySelector('.profile__add-button').addEventListener('click', (e) => {
+profileAddButton.addEventListener('click', (e) => {
   if (e.target.classList.contains('profile__add-button')) {
-    popupToggle(popupAddCard)
+    openOrClosePopup(popupAddCard)
   }
 })
 
@@ -89,13 +92,13 @@ function addNewCard (e) {
       link: cardUrlInput.value
     })
   )
-  popupToggle(popupAddCard)
+  openOrClosePopup(popupAddCard)
 }
 
 popupFormCard.addEventListener('submit', addNewCard)
 
 // Перебор массива
-initialCards.reverse().forEach((data) => {
+initialCard.reverse().forEach((data) => {
   renderCard(data)
 })
 
@@ -105,7 +108,7 @@ function renderCard (card) {
 }
 
 // Создание карточки
-function createCard (initialCards) {
+function createCard (initialCard) {
   const cardElement = cardTemplate.cloneNode(true)
   const cardImage = cardElement.querySelector('.element__image')
   const cardName = cardElement.querySelector('.element__title')
@@ -114,9 +117,9 @@ function createCard (initialCards) {
   const cardDeleteButton = cardElement.querySelector('.element__delete')
   const cardHeartButton = cardElement.querySelector('.element__heart')
 
-  cardImage.src = initialCards.link
-  cardImage.alt = initialCards.name
-  cardName.textContent = initialCards.name
+  cardImage.src = initialCard.link
+  cardImage.alt = initialCard.name
+  cardName.textContent = initialCard.name
 
   // Удалить карточку
   cardDeleteButton.addEventListener('click', () => {
@@ -133,7 +136,7 @@ function createCard (initialCards) {
     popupAboutImage.textContent = evt.target.alt
     popupImage.src = evt.target.src
     popupImage.alt = evt.target.alt
-    popupToggle(popupZoomCard)
+    openOrClosePopup(popupZoomCard)
   })
 
   return cardElement
