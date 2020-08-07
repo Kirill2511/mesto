@@ -45,9 +45,9 @@ function closePopup (evt) {
 
 // Закрыть кнопкой Esc
 function closePopupEsc (evt) {
-  const popupOpened = document.querySelector('.popup_opened')
-  if (evt.key === 'Escape' && popupOpened) {
-    popupToggle(popupOpened)
+  const popupClose = document.querySelector('.popup_opened')
+  if (evt.key === 'Escape' && popupClose) {
+    popupToggle(popupClose)
   }
 }
 
