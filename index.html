@@ -19,11 +19,11 @@
     <div class="profile__info">
       <div class="profile__wrapper">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button" type="button"></button>
+        <button aria-label="Edit Profile" class="profile__edit-button" type="button"></button>
       </div>
       <p class="profile__subtitle">Исследователь океана</p>
     </div>
-    <button class="profile__add-button" type="button"></button>
+    <button aria-label="Add Card" class="profile__add-button" type="button"></button>
   </section>
   <section class="elements">
     <ul class="elements__container">
@@ -37,7 +37,7 @@
 
 <div class="popup popup_edit-profile">
   <div class="popup__container">
-    <button class="popup__close-icon" type="button"></button>
+    <button aria-label="Close" class="popup__close-icon" type="button"></button>
     <h2 class="popup__title">Редактировать профиль</h2>
     <form action="#" class="popup__fields" method="GET" name="add-profile" novalidate>
       <label class="popup__label">
@@ -50,14 +50,14 @@
                name="about" placeholder="Обо мне" required type="text">
         <span class="popup__input-error" id="activity-input-error"></span>
       </label>
-      <button class="popup__button" type="submit">Сохранить</button>
+      <button aria-label="Save" class="popup__button" type="submit">Сохранить</button>
     </form>
   </div>
 </div>
 
 <div class="popup popup_add-card">
   <div class="popup__container">
-    <button class="popup__close-icon popup__close" type="button"></button>
+    <button aria-label="Close" class="popup__close-icon popup__close" type="button"></button>
     <h2 class="popup__title">Новое место</h2>
     <form action="#" class="popup__fields popup__fields-card" name="add-card" method="GET" novalidate>
       <label class="popup__label">
@@ -68,7 +68,7 @@
         <input id="link-input" type="url" class="popup__item popup__input-url" name="link" placeholder="Ссылка на картинку" required>
         <span id="link-input-error" class="popup__input-error"></span>
       </label>
-      <button class="popup__button popup__button_add-image popup__button_disabled" type="submit">Создать</button>
+      <button aria-label="Create Card" class="popup__button popup__button_add-image popup__button_disabled" type="submit">Создать</button>
     </form>
   </div>
 </div>
@@ -77,17 +77,17 @@
   <div class="popup__gallery">
     <img alt="" class="popup__image" src="">
     <p class="popup__card-about"></p>
-    <button class="popup__close-icon popup__close" type="submit"></button>
+    <button aria-label="Close" class="popup__close-icon popup__close" type="submit"></button>
   </div>
 </div>
 
 <template id="template-card">
   <li class="element">
-    <button class="element__delete" name="Удалить" type="submit"></button>
+    <button aria-label="Delete" class="element__delete" name="Удалить" type="submit"></button>
     <img alt="фото пользователя" class="element__image" src="">
     <div class="element__container">
       <h2 class="element__title"></h2>
-      <button class="element__heart" name="Лайк" type="submit"></button>
+      <button aria-label="Like" class="element__heart" name="Лайк" type="submit"></button>
     </div>
   </li>
 </template>
