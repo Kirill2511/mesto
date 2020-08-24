@@ -1,5 +1,5 @@
 import { popupAboutImage, popupImage, popupZoomCard } from './constants.js'
-import { openOrClosePopup } from './index.js'
+import { openOrClosePopup } from './utils.js'
 
 export class Card {
   constructor (data, cardElements) {
@@ -17,9 +17,7 @@ export class Card {
 
   // Удалить карточку
   _deleteCard (evt) {
-    const card = evt.target.closest('.element')
-
-    card.remove()
+    evt.target.closest('.element').remove()
   }
 
   // Лайк
@@ -46,9 +44,11 @@ export class Card {
   generateCard () {
     this._card = this._getTemplate()
 
+    this._imgage = this._card.querySelector('.element__image')
+
     this._card.querySelector('.element__title').textContent = this._name
-    this._card.querySelector('.element__image').src = this._link
-    this._card.querySelector('.element__image').alt = this._name
+    this._imgage.src = this._link
+    this._imgage.alt = this._name
 
     this._setEventListeners()
 
