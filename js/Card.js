@@ -16,13 +16,13 @@ export class Card {
   }
 
   // Удалить карточку
-  _deleteCard (evt) {
-    evt.target.closest('.element').remove()
+  _deleteCard () {
+    this._card.remove()
   }
 
   // Лайк
-  _likeCard (evt) {
-    evt.target.classList.toggle('element__heart_active')
+  _likeCard () {
+    this._card.querySelector('.element__heart').classList.toggle('element__heart_active')
   }
 
   // Зум картинки
@@ -35,9 +35,15 @@ export class Card {
 
   // Обработка событий
   _setEventListeners () {
-    this._card.querySelector('.element__delete').addEventListener('click', this._deleteCard)
-    this._card.querySelector('.element__heart').addEventListener('click', this._likeCard)
-    this._card.querySelector('.element__image').addEventListener('click', this._zoomCard)
+    this._card.querySelector('.element__delete').addEventListener('click', () => {
+      this._deleteCard()
+    })
+    this._card.querySelector('.element__heart').addEventListener('click', () => {
+      this._likeCard()
+    })
+    this._card.querySelector('.element__image').addEventListener('click', () => {
+      this._zoomCard()
+    })
   }
 
   // Генерация карточки
