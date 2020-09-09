@@ -14,4 +14,4 @@
 - JS
 
 #### Ссылка на проект Github:
-https://kirill2511.github.io/mesto/
+https://kirill2511.github.io/mesto/index.html
