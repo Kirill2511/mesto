@@ -18,6 +18,7 @@ import {
   popupFormCard,
   popupFormElement,
   popupButton,
+  popupButtonAddCard,
   cardTitleInput,
   cardUrlInput,
   popupParameter
@@ -81,6 +82,8 @@ const cardsList = new Section(
 
 // Рендер новой карточки
 const renderCardPopup = () => {
+  popupButtonAddCard.disabled = true
+  popupButtonAddCard.classList.add('popup__button_disabled')
   cardTitleInput.value = ''
   cardUrlInput.value = ''
   cardValidator.clearError()

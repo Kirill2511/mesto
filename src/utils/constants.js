@@ -36,20 +36,13 @@ const popupProfileAbout = document.querySelector('.profile__subtitle')
 const profileEditButton = document.querySelector('.profile__edit-button')
 const profileAddButton = document.querySelector('.profile__add-button')
 
-const popupImage = document.querySelector('.popup__image')
-const popupAboutImage = document.querySelector('.popup__card-about')
-const popupEditProfile = document.querySelector('.popup_edit-profile')
-const popupAddCard = document.querySelector('.popup_add-card')
-const popupZoomCard = document.querySelector('.popup_card-image')
 const popupFormCard = document.querySelector('.popup__fields-card')
 const popupFormElement = document.querySelector('.popup__fields')
 const popupButton = document.querySelector('.popup__button')
+const popupButtonAddCard = document.querySelector('.popup__button_add-image')
 
 const cardTitleInput = document.querySelector('.popup__input-name')
 const cardUrlInput = document.querySelector('.popup__input-url')
-
-// массив из полей формы
-const arrayInputs = (formElement) => Array.from(formElement.querySelectorAll('.popup__item'))
 
 const popupParameter = {
   formSelector: '.popup__fields',
@@ -69,16 +62,11 @@ export {
   popupProfileAbout,
   profileEditButton,
   profileAddButton,
-  popupImage,
-  popupAboutImage,
-  popupEditProfile,
-  popupAddCard,
-  popupZoomCard,
   popupFormCard,
   popupFormElement,
   popupButton,
+  popupButtonAddCard,
   cardTitleInput,
   cardUrlInput,
-  arrayInputs,
   popupParameter
 }
