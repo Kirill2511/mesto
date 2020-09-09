@@ -14,11 +14,11 @@
 .elements__container{display:grid;margin:0;padding:0;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));grid-gap:18px}
 .elements{max-width:882px;margin:auto;padding-top:50px;padding-bottom:0}@media screen and (max-width:1024px){.elements{padding-right:48px;padding-left:48px}}@media screen and (max-width:425px){.elements{padding-top:36px;padding-right:19px;padding-left:19px}}
 .element__delete{position:absolute;display:block;width:48px;height:20px;margin-top:18px;margin-left:80%;padding:0;cursor:pointer;border:none;outline:none;background-color:transparent;background-image:url(./images/delet.svg);background-repeat:no-repeat;background-position:50%}.element__delete:hover{transition:.3s ease-in-out;opacity:.6}
-.element__image{width:100%;height:258px;border-radius:10px 10px 0 0;-o-object-fit:cover;object-fit:cover}
+.element__image{display:flex;width:100%;height:258px;border-radius:10px 10px 0 0;-o-object-fit:cover;object-fit:cover}.element__image:hover{cursor:pointer}
 .element__title{font-size:24px;font-weight:900;line-height:29px;overflow:hidden;width:74%;margin:0 auto 0 21px;white-space:nowrap;text-overflow:ellipsis;color:#000}
 .element__container{display:flex;align-items:center;justify-content:center;margin:auto;padding-bottom:28px;padding-top:28px;border-radius:0 0 10px 10px;background-color:#fff}
 .element__heart{width:21px;height:18px;margin-right:7%;padding:0;border:0;outline:none;background-color:unset;background-image:url(./images/like.svg);background-repeat:no-repeat;background-size:100%}.element__heart:hover{cursor:pointer;transition:.35s;opacity:.6}
-.element{line-height:0;position:relative;max-width:284px;list-style:none;align-self:center;justify-self:center}
+.element{line-height:0;position:relative;width:284px;list-style:none;align-self:center;justify-self:center}
 .footer__copyright{font-size:18px;font-weight:400;line-height:22px;margin:0;padding:0;color:#545454}@media screen and (max-width:425px){.footer__copyright{font-size:14px;line-height:17px}}
 .footer{max-width:882px;margin:auto;padding-top:66px;padding-bottom:60px}@media screen and (max-width:1024px){.footer{padding-right:48px;padding-left:48px}}@media screen and (max-width:425px){.footer{padding:48px 19px 36px}}
 .popup__container{position:relative;z-index:2;width:358px;padding:36px;border-radius:10px;background-color:#fff;box-shadow:0 0 25px rgba(0,0,0,.15)}@media screen and (max-width:768px){.popup__container{margin:0 40px}}
