@@ -7,7 +7,7 @@
 .element {
   line-height: 0;
   position: relative;
-  max-width: 284px;
+  width: 284px;
   list-style: none;
   align-self: center;
   justify-self: center;

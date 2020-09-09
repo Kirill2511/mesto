@@ -38,7 +38,7 @@
   <div class="popup__container">
     <button aria-label="Закрыть" class="popup__close-icon" type="button"></button>
     <h2 class="popup__title">Редактировать профиль</h2>
-    <form action="#" class="popup__fields" method="GET" name="add-profile" novalidate>
+    <form action="#" class="popup__fields popup__fields-edit" method="GET" name="add-profile" novalidate>
       <label class="popup__label">
         <input class="popup__item popup__name" id="name-input" maxlength="40" minlength="2" name="name"
                placeholder="Имя" required type="text">
@@ -49,7 +49,7 @@
                name="about" placeholder="Обо мне" required type="text">
         <span class="popup__input-error" id="activity-input-error"></span>
       </label>
-      <button aria-label="Сохранить" class="popup__button" type="submit">Сохранить</button>
+      <button aria-label="Сохранить" class="popup__button popup__button_edit-profile" type="submit">Сохранить</button>
     </form>
   </div>
 </div>

@@ -37,9 +37,9 @@ const profileEditButton = document.querySelector('.profile__edit-button')
 const profileAddButton = document.querySelector('.profile__add-button')
 
 const popupFormCard = document.querySelector('.popup__fields-card')
-const popupFormElement = document.querySelector('.popup__fields')
-const popupButton = document.querySelector('.popup__button')
+const popupFormEdit = document.querySelector('.popup__fields-edit')
 const popupButtonAddCard = document.querySelector('.popup__button_add-image')
+const popupButtonEditProfile = document.querySelector('.popup__button_edit-profile')
 
 const cardTitleInput = document.querySelector('.popup__input-name')
 const cardUrlInput = document.querySelector('.popup__input-url')
@@ -63,9 +63,9 @@ export {
   profileEditButton,
   profileAddButton,
   popupFormCard,
-  popupFormElement,
-  popupButton,
+  popupFormEdit,
   popupButtonAddCard,
+  popupButtonEditProfile,
   cardTitleInput,
   cardUrlInput,
   popupParameter

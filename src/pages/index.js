@@ -16,9 +16,9 @@ import {
   profileEditButton,
   profileAddButton,
   popupFormCard,
-  popupFormElement,
-  popupButton,
+  popupFormEdit,
   popupButtonAddCard,
+  popupButtonEditProfile,
   cardTitleInput,
   cardUrlInput,
   popupParameter
@@ -28,22 +28,6 @@ import {
 const handleProfileFormSubmit = (formValues) => {
   userInfo.setUserInfo(formValues)
 }
-
-const addNewCard = () => {
-  const inputValues = {
-    name: cardTitleInput.value,
-    link: cardUrlInput.value
-  }
-
-  const card = new Card(inputValues, '#template-card', handleCardClick).generateCard()
-  cards.prepend(card)
-}
-
-const profileValidator = new FormValidator(popupParameter, popupFormElement) // валидация инпутов попапа "Редактировать профиль"
-const cardValidator = new FormValidator(popupParameter, popupFormCard) // валидация инпутов попапа "Добавить карточку"
-const popupWithImage = new PopupWithImage('.popup_card-image') // попап с картинкой
-const profilePopup = new PopupWithForm('.popup_edit-profile', handleProfileFormSubmit) // попап с формой "Редактировать профиль"
-const cardPopup = new PopupWithForm('.popup_add-card', addNewCard) // попап с формой "Добавить карточку"
 
 const userInfo = new UserInfo({
   userName: popupProfileName,
@@ -58,7 +42,7 @@ const renderProfilePopup = () => {
   popupAboutInput.value = profileElement.about
 
   profileValidator.clearError()
-  popupButton.classList.remove('popup__button_disabled')
+  popupButtonEditProfile.classList.remove('popup__button_disabled')
 
   profilePopup.open()
 }
@@ -68,13 +52,23 @@ const handleCardClick = (evt) => {
   popupWithImage.open(evt)
 }
 
+const card = (item) => {
+  return (new Card(item, '#template-card', handleCardClick)).generateCard()
+}
+
+const addNewCard = () => {
+  cards.prepend(card({
+    name: cardTitleInput.value,
+    link: cardUrlInput.value
+  }))
+}
+
 // Загрузка стартовых карточек
 const cardsList = new Section(
   {
     items: initialCard,
     renderer: (item) => {
-      const card = new Card(item, '#template-card', handleCardClick).generateCard()
-      cardsList.addItem(card)
+      cardsList.addItem(card(item))
     }
   },
   '.elements__container'
@@ -90,6 +84,12 @@ const renderCardPopup = () => {
 
   cardPopup.open()
 }
+
+const profileValidator = new FormValidator(popupParameter, popupFormEdit) // валидация инпутов попапа "Редактировать профиль"
+const cardValidator = new FormValidator(popupParameter, popupFormCard) // валидация инпутов попапа "Добавить карточку"
+const popupWithImage = new PopupWithImage('.popup_card-image') // попап с картинкой
+const profilePopup = new PopupWithForm('.popup_edit-profile', handleProfileFormSubmit) // попап с формой "Редактировать профиль"
+const cardPopup = new PopupWithForm('.popup_add-card', addNewCard) // попап с формой "Добавить карточку"
 
 // СЛУШАТЕЛИ
 profileEditButton.addEventListener('click', renderProfilePopup) // Рендер данных профиля
