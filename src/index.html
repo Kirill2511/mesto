@@ -6,16 +6,15 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="ie=edge" http-equiv="X-UA-Compatible">
   <title>Место</title>
-  <link href="./pages/index.css" rel="stylesheet">
 </head>
 
 <body class="page">
 <header class="header">
-  <img alt="лого" class="header__logo" src="./images/logo.svg">
+  <img alt="лого" class="header__logo" src="images/logo.svg">
 </header>
 <main class="content">
   <section class="profile">
-    <img alt="жак-ив" class="profile__avatar" src="./images/avatar.jpg">
+    <img alt="жак-ив" class="profile__avatar" src="images/avatar.jpg">
     <div class="profile__info">
       <div class="profile__wrapper">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -75,7 +74,7 @@
 
 <div class="popup popup_card-image">
   <div class="popup__gallery">
-    <img alt="" class="popup__image" src="">
+    <img class="popup__image">
     <p class="popup__card-about"></p>
     <button aria-label="Закрыть" class="popup__close-icon popup__close" type="submit"></button>
   </div>
@@ -84,13 +83,12 @@
 <template id="template-card">
   <li class="element">
     <button aria-label="Удалить" class="element__delete" name="Удалить" type="submit"></button>
-    <img alt="фото пользователя" class="element__image" src="">
+    <img alt="фото пользователя" class="element__image">
     <div class="element__container">
       <h2 class="element__title"></h2>
       <button aria-label="Лайк" class="element__heart" name="Лайк" type="submit"></button>
     </div>
   </li>
 </template>
-<script type="module" src="./js/index.js"></script>
 </body>
 </html>
