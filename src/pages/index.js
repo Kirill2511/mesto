@@ -58,7 +58,7 @@ const createCard = (item) => {
 // Загрузка стартовых карточек
 const cardsList = new Section(
   {
-    items: initialCard.reverse(), // Какой способ будет лучше? С реверсом или с вариативностью в addItem? Спасибо
+    items: initialCard.reverse(),
     renderer: (item) => {
       cardsList.addItem(createCard(item))
     }
