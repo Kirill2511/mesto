@@ -8,7 +8,6 @@ import UserInfo from '../components/UserInfo.js'
 
 import {
   initialCard,
-  cards,
   popupNameInput,
   popupAboutInput,
   popupProfileName,
@@ -52,27 +51,29 @@ const handleCardClick = (evt) => {
   popupWithImage.open(evt)
 }
 
-const card = (item) => {
-  return (new Card(item, '#template-card', handleCardClick)).generateCard()
-}
-
-const addNewCard = () => {
-  cards.prepend(card({
-    name: cardTitleInput.value,
-    link: cardUrlInput.value
-  }))
+const createCard = (item) => {
+  return new Card(item, '#template-card', handleCardClick).generateCard()
 }
 
 // Загрузка стартовых карточек
 const cardsList = new Section(
   {
-    items: initialCard,
+    items: initialCard.reverse(), // Какой способ будет лучше? С реверсом или с вариативностью в addItem? Спасибо
     renderer: (item) => {
-      cardsList.addItem(card(item))
+      cardsList.addItem(createCard(item))
     }
   },
   '.elements__container'
 )
+
+const addNewCard = () => {
+  cardsList.addItem(
+    createCard({
+      name: cardTitleInput.value,
+      link: cardUrlInput.value
+    })
+  )
+}
 
 // Рендер новой карточки
 const renderCardPopup = () => {

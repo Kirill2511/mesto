@@ -25,8 +25,6 @@ const initialCard = [
   }
 ]
 
-const cards = document.querySelector('.elements__container')
-
 const popupNameInput = document.querySelector('.popup__name')
 const popupAboutInput = document.querySelector('.popup__about')
 
@@ -55,7 +53,6 @@ const popupParameter = {
 
 export {
   initialCard,
-  cards,
   popupNameInput,
   popupAboutInput,
   popupProfileName,
