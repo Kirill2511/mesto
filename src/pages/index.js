@@ -1,4 +1,4 @@
-// import './index.css'
+import './index.css'
 import API from '../components/API.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
