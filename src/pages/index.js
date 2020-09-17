@@ -1,102 +1,191 @@
-import './index.css'
+// import './index.css'
+import API from '../components/API.js'
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import PopupWithImage from '../components/PopupWithImage.js'
+import PopupWithConfirm from '../components/PopupWithConfirm.js'
 import UserInfo from '../components/UserInfo.js'
 
 import {
-  initialCard,
-  popupNameInput,
-  popupAboutInput,
-  popupProfileName,
-  popupProfileAbout,
-  profileEditButton,
-  profileAddButton,
-  popupFormCard,
-  popupFormEdit,
+  authorization,
+  baseUrl,
+  cardContainer,
+  jobInput,
+  nameInput,
+  popupEditAvatar,
   popupButtonAddCard,
-  popupButtonEditProfile,
-  cardTitleInput,
-  cardUrlInput,
-  popupParameter
+  popupButtonAvatar,
+  popupButtonConfirm,
+  popupButtonEdit,
+  popupAddCard,
+  popupDeleteCard,
+  popupFormAvatar,
+  popupFormCardNew,
+  popupFormEditProfile,
+  popupZoomCard,
+  popupInputAvatarLink,
+  popupInputNewCard,
+  popupInputNewCardLink,
+  popupParameter,
+  popupEdit,
+  profileAvatar,
+  profileButtonAdd,
+  profileButtonAvatar,
+  profileButtonEdit,
+  profileJob,
+  profileName
 } from '../utils/constants.js'
 
 // ФУНКЦИИ
-const handleProfileFormSubmit = (formValues) => {
-  userInfo.setUserInfo(formValues)
+
+const api = new API({ baseUrl, authorization })
+
+/* -----------------Аватар----------------- */
+const handleAvatarFormSubmit = (formValues) => {
+  return api.editUserAvatar(formValues).then((user) => profile.setUserAvatar(user))
 }
 
-const userInfo = new UserInfo({
-  userName: popupProfileName,
-  userDescription: popupProfileAbout
-})
+const avatarPopup = new PopupWithForm(popupEditAvatar, handleAvatarFormSubmit)
 
-// Рендер данных профиля
+const renderAvatarPopup = () => {
+  popupButtonAvatar.disabled = true
+  avatarValidator.clearError()
+  popupInputAvatarLink.value = ''
+  popupButtonAvatar.classList.add('popup__button_disabled')
+  avatarPopup.open()
+}
+
+/* -----------------Профиль----------------- */
+const profile = new UserInfo(profileName, profileJob, profileAvatar)
+
+let initialUserId
+
+function setInitialUserId (user) {
+  initialUserId = user._id
+}
+
+function setInitialUser ({ avatar, name, about }) {
+  profile.setUserInfo({ name, about })
+  profile.setUserAvatar({ avatar })
+}
+
+api
+  .getInitialUserInfo()
+  .then((user) => {
+    setInitialUserId(user)
+    setInitialUser(user)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+
+const handleProfileFormSubmit = (formValues) => {
+  return api.editUserInfo(formValues).then((user) => profile.setUserInfo(user))
+}
+
+const profilePopup = new PopupWithForm(popupEdit, handleProfileFormSubmit)
+
 const renderProfilePopup = () => {
-  const profileElement = userInfo.getUserInfo()
-
-  popupNameInput.value = profileElement.name
-  popupAboutInput.value = profileElement.about
+  const { username, description } = profile.getUserInfo()
+  nameInput.value = username
+  jobInput.value = description
 
   profileValidator.clearError()
-  popupButtonEditProfile.classList.remove('popup__button_disabled')
+  popupButtonEdit.classList.remove('popup__button_disabled')
+
+  // так при валидных значениях неизмененные данные все равно отправятся
+  const event = new Event('input')
+  nameInput.dispatchEvent(event)
+  jobInput.dispatchEvent(event)
 
   profilePopup.open()
 }
 
-//  Карточки
-const handleCardClick = (evt) => {
-  popupWithImage.open(evt)
-}
+/* -----------------Начальные карточки----------------- */
+const card = (cardItem) =>
+  new Card(cardItem, '#template-card', api, {
+    cardUserId: cardItem.owner._id,
+    initialUserId: initialUserId,
+    renderConfirmPopup: renderConfirmPopup,
+    renderImgPopup: renderImgPopup
+  })
 
-const createCard = (item) => {
-  return new Card(item, '#template-card', handleCardClick).generateCard()
-}
-
-// Загрузка стартовых карточек
-const cardsList = new Section(
-  {
-    items: initialCard.reverse(),
-    renderer: (item) => {
-      cardsList.addItem(createCard(item))
-    }
-  },
-  '.elements__container'
-)
-
-const addNewCard = () => {
-  cardsList.addItem(
-    createCard({
-      name: cardTitleInput.value,
-      link: cardUrlInput.value
-    })
+const renderInitialCards = (cardList) => {
+  const initialCardList = new Section(
+    {
+      items: cardList,
+      renderer: (item) => {
+        const cardElement = card(item).generateCard()
+        initialCardList.addItem(cardElement)
+      }
+    },
+    cardContainer
   )
+
+  return initialCardList
 }
 
-// Рендер новой карточки
+api
+  .getInitialCards()
+  .then((cardList) => Promise.all(cardList))
+  .then(renderInitialCards)
+  .then((initialCardList) => initialCardList.renderItems())
+  .catch((err) => {
+    console.log(err)
+  })
+
+/* -----------------Добавить карточку----------------- */
+const addUserCard = (card, container) => {
+  container.prepend(card)
+}
+
+const renderUserCard = (item) => {
+  const cardElement = card(item).generateCard()
+  addUserCard(cardElement, cardContainer)
+}
+
+const handleCardFormSubmit = (formValues) => {
+  return api.postUserCard(formValues).then(renderUserCard)
+}
+
+const cardPopup = new PopupWithForm(popupAddCard, handleCardFormSubmit)
+
 const renderCardPopup = () => {
   popupButtonAddCard.disabled = true
   popupButtonAddCard.classList.add('popup__button_disabled')
-  cardTitleInput.value = ''
-  cardUrlInput.value = ''
+  popupInputNewCard.value = ''
+  popupInputNewCardLink.value = ''
   cardValidator.clearError()
-
   cardPopup.open()
 }
 
-const profileValidator = new FormValidator(popupParameter, popupFormEdit) // валидация инпутов попапа "Редактировать профиль"
-const cardValidator = new FormValidator(popupParameter, popupFormCard) // валидация инпутов попапа "Добавить карточку"
-const popupWithImage = new PopupWithImage('.popup_card-image') // попап с картинкой
-const profilePopup = new PopupWithForm('.popup_edit-profile', handleProfileFormSubmit) // попап с формой "Редактировать профиль"
-const cardPopup = new PopupWithForm('.popup_add-card', addNewCard) // попап с формой "Добавить карточку"
+// Попат с зумом картинки
+const imgPopup = new PopupWithImage(popupZoomCard)
+
+const renderImgPopup = ({ link, name }) => {
+  imgPopup.open({ link, name })
+}
+
+// Удаление карточки
+const confirmPopup = new PopupWithConfirm(popupDeleteCard, popupButtonConfirm)
+
+const renderConfirmPopup = (callback) => {
+  confirmPopup.open(callback)
+}
+
+// Валидация форм
+const profileValidator = new FormValidator(popupParameter, popupFormEditProfile)
+const cardValidator = new FormValidator(popupParameter, popupFormCardNew)
+const avatarValidator = new FormValidator(popupParameter, popupFormAvatar)
 
 // СЛУШАТЕЛИ
-profileEditButton.addEventListener('click', renderProfilePopup) // Рендер данных профиля
-profileAddButton.addEventListener('click', renderCardPopup) // Рендер новой карточки
+profileButtonAdd.addEventListener('click', renderCardPopup)
+profileButtonEdit.addEventListener('click', renderProfilePopup)
+profileButtonAvatar.addEventListener('click', renderAvatarPopup)
 
 // ВЫЗОВ ФУНКЦИЙ
-cardsList.renderItems() // Загрузка карточек
-profileValidator.enableValidation() // Валидация полей у попапа "Редактировать профиль"
-cardValidator.enableValidation() // Валидация полей у попапа "Добавить карточку"
+profileValidator.enableValidation()
+cardValidator.enableValidation()
+avatarValidator.enableValidation()

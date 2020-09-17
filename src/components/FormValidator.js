@@ -1,27 +1,22 @@
 export default class FormValidator {
-  constructor (parameter, formElement) {
-    this._inputSelector = parameter.inputSelector
-    this._submitButtonSelector = parameter.submitButtonSelector
-    this._inactiveButtonClass = parameter.inactiveButtonClass
-    this._inputErrorClass = parameter.inputErrorClass
-    this._errorClass = parameter.errorClass
+  constructor (parameters, formElement) {
+    this._inputSelector = parameters.inputSelector
+    this._submitButtonSelector = parameters.submitButtonSelector
+    this._inactiveButtonClass = parameters.inactiveButtonClass
+    this._inputErrorClass = parameters.inputErrorClass
+    this._errorClass = parameters.errorClass
     this._formElement = formElement
   }
 
-  clearError () {
-    Array.from(this._formElement.querySelectorAll('.popup__item')).forEach(inputElement => this._hideInputError(inputElement))
+  // Показать сообщение об ошибке
+  _showInputError (inputElement, errorMessage) {
+    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`)
+    inputElement.classList.add(this._inputErrorClass)
+    errorElement.classList.add(this._errorClass)
+    errorElement.textContent = errorMessage
   }
 
   // Скрыть сообщение об ошибке
-  _showInputError (inputElement, errorMessage) {
-    // Находим элемент ошибки внутри самой функции, тогда функция будет работать с любым полем внутри формы
-    const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`)
-    inputElement.classList.add(this._inputErrorClass)
-    errorElement.textContent = errorMessage
-    errorElement.classList.add(this._errorClass)
-  }
-
-  // Показать сообщение об ошибке
   _hideInputError (inputElement) {
     const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`)
     inputElement.classList.remove(this._inputErrorClass)
@@ -38,14 +33,22 @@ export default class FormValidator {
     }
   }
 
-  // Функция проверяет одновременную валидность всех полей одной формы
+  // Убрать ошибку, если пользователь закрыл попап и при этом ввел невалидные данные
+  clearError () {
+    const ArrayPopupInputs = Array.from(this._formElement.querySelectorAll('.popup__item'))
+    ArrayPopupInputs.forEach(inputElement => this._hideInputError(inputElement))
+  }
+
+  // Проверить все поля ввода на валидность
   _hasInvalidInput (inputList) {
+    // проходим по этому массиву методом some
     return inputList.some((inputElement) => {
+      // Если поле не валидно, колбэк вернёт true. Обход массива прекратится и вся фунцкция hasInvalidInput вернёт true
       return !inputElement.validity.valid
     })
   }
 
-  // Функция активации кнопки ("отправить" или "сохранить")
+  // Переключать состояние кнопки
   _toggleButtonState (inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.classList.add(this._inactiveButtonClass)
@@ -56,23 +59,22 @@ export default class FormValidator {
     }
   }
 
-  // Функция добавляет обработчики всем полям формы и активирует кнопку
+  // Установить обработчики всем полям формы
   _setEventListeners () {
-    // Находим все поля внутри формы, и сделаем из них массив
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector))
-    // Находим в текущей форме кнопку отправки
-    const buttonElement = this._formElement.querySelector(this._submitButtonSelector)
-    inputList.forEach((inputElement) => {
-      // Обходим массив и каждому полю добавляем обработчик события input
+    const formList = Array.from(this._formElement.querySelectorAll(this._inputSelector))
+    const buttonElement = this._formElement.querySelector(this._submitButtonSelector) // найдем в текущей форме кнопку отправки
+
+    this._toggleButtonState(formList, buttonElement) // чтобы отключить кнопку в самом начале
+
+    formList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
-        // проверка полей на валидность и проверка кнопки
         this._checkInputValidity(inputElement)
-        this._toggleButtonState(inputList, buttonElement)
+        this._toggleButtonState(formList, buttonElement) // чтобы проверять его при изменении любого из полей
       })
     })
   }
 
-  // Добавить обработчик всем формам
+  // Добавить обработчики всем формам
   enableValidation () {
     this._setEventListeners()
   }
