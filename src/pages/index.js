@@ -38,11 +38,9 @@ import {
   profileName
 } from '../utils/constants.js'
 
-// ФУНКЦИИ
-
 const api = new API({ baseUrl, authorization })
 
-/* -----------------Аватар----------------- */
+// Аватар
 const handleAvatarFormSubmit = (formValues) => {
   return api.editUserAvatar(formValues).then((user) => profile.setUserAvatar(user))
 }
@@ -57,7 +55,7 @@ const renderAvatarPopup = () => {
   avatarPopup.open()
 }
 
-/* -----------------Профиль----------------- */
+// Профиль
 const profile = new UserInfo(profileName, profileJob, profileAvatar)
 
 let initialUserId
@@ -102,7 +100,7 @@ const renderProfilePopup = () => {
   profilePopup.open()
 }
 
-/* -----------------Начальные карточки----------------- */
+// Инициализация картинок
 const card = (cardItem) =>
   new Card(cardItem, '#template-card', api, {
     cardUserId: cardItem.owner._id,
@@ -135,7 +133,7 @@ api
     console.log(err)
   })
 
-/* -----------------Добавить карточку----------------- */
+// Создать карточку
 const addUserCard = (card, container) => {
   container.prepend(card)
 }
