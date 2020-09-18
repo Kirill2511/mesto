@@ -177,12 +177,12 @@ const profileValidator = new FormValidator(popupParameter, popupFormEditProfile)
 const cardValidator = new FormValidator(popupParameter, popupFormCardNew)
 const avatarValidator = new FormValidator(popupParameter, popupFormAvatar)
 
-// СЛУШАТЕЛИ
+// Слушатели
 profileButtonAdd.addEventListener('click', renderCardPopup)
 profileButtonEdit.addEventListener('click', renderProfilePopup)
 profileButtonAvatar.addEventListener('click', renderAvatarPopup)
 
-// ВЫЗОВ ФУНКЦИЙ
+// Вызов функций
 profileValidator.enableValidation()
 cardValidator.enableValidation()
 avatarValidator.enableValidation()
