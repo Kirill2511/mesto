@@ -95,7 +95,6 @@ const renderProfilePopup = () => {
   profileValidator.clearError()
   popupButtonEdit.classList.remove('popup__button_disabled')
 
-  // так при валидных значениях неизмененные данные все равно отправятся
   const event = new Event('input')
   nameInput.dispatchEvent(event)
   jobInput.dispatchEvent(event)
