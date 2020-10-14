@@ -1,39 +1,52 @@
 export default class Popup {
-  constructor (popupSelector) {
-    this._popupSelector = popupSelector
-    this._handleEscClose = this._handleEscClose.bind(this)
-    this._clickClose = this._clickClose.bind(this)
-  }
+	constructor(modalSelector) {
+		this._modal = modalSelector;
+		this._closeButton = this._modal.querySelector('.popup__close-icon');
+		this._submitButton = this._modal.querySelector('.popup__button');
+		this._handlerEscClose = this._handlerEscClose.bind(this);
+	}
 
-  _handleEscClose (evt) {
-    if (evt.key === 'Escape') {
-      this.close()
-    }
-  }
+	_handlerEscClose(evt) {
+		if (evt.key === 'Escape') {
+			this.close();
+		}
+	}
 
-  _clickClose (evt) {
-    if (evt.target.classList.contains('popup__close-icon') || evt.target.classList.contains('popup')) {
-      this.close()
-    }
-  }
+	_closeByOverlay(evt) {
+		if (evt.target.classList.contains('popup')) {
+			this.close();
+		}
+	}
 
-  _setEventListeners () {
-    this._popupSelector.addEventListener('click', this._clickClose)
-    document.addEventListener('keydown', this._handleEscClose)
-  }
+	_handlerCloseButton() {
+		this.close();
+	}
 
-  _removeEventListeners () {
-    this._popupSelector.removeEventListener('click', this._clickClose)
-    document.removeEventListener('keydown', this._handleEscClose)
-  }
+	loading(loading) {
+		if (loading) {
+			this._submitButton.textContent = 'Сохранение...';
+		}
+		else {
+			this._submitButton.textContent = 'Сохранить';
+		}
+	}
 
-  open () {
-    this._popupSelector.classList.add('popup_opened')
-    this._setEventListeners()
-  }
+	open() {
+		this._modal.classList.add('modal_opened');
+		document.addEventListener('keydown', this._handlerEscClose);
+	}
 
-  close () {
-    this._popupSelector.classList.remove('popup_opened')
-    this._removeEventListeners()
-  }
+	close() {
+		this._modal.classList.remove('modal_opened');
+		document.removeEventListener('keydown', this._handlerEscClose);
+	}
+
+	setEventListeners() {
+		this._modal.addEventListener('click', this._closeByOverlay.bind(this));
+		this._closeButton.addEventListener('click', this._handlerCloseButton.bind(this));
+	}
+
+	removeEventListeners() {
+		this._modal.removeEventListener('click', this._closeByOverlay.bind(this));
+	}
 }

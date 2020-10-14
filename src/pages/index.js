@@ -1,189 +1,264 @@
 // import './index.css';
-import API from '../components/API.js';
 import Card from '../components/Card.js';
-import FormValidator from '../components/FormValidator.js';
-import Section from '../components/Section.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithConfirm from '../components/PopupWithConfirm.js';
-import UserInfo from '../components/UserInfo.js';
 
 import {
-	authorization,
-	baseUrl,
-	cardContainer,
-	jobInput,
-	nameInput,
-	popupEditAvatar,
-	popupButtonAddCard,
-	popupButtonAvatar,
-	popupButtonConfirm,
-	popupButtonEdit,
-	popupAddCard,
-	popupDeleteCard,
-	popupFormAvatar,
-	popupFormCardNew,
-	popupFormEditProfile,
-	popupZoomCard,
-	popupInputAvatarLink,
-	popupInputNewCard,
-	popupInputNewCardLink,
 	popupParameter,
-	popupEdit,
-	profileAvatar,
-	profileButtonAdd,
-	profileButtonAvatar,
-	profileButtonEdit,
+	modalEdit,
+	modalImage,
+	modalAdd,
+	openModalEdit,
+	openModalAdd,
+	nameInput,
+	jobInput,
 	profileJob,
 	profileName,
+	modalAddSave,
+	modalEditSave,
+	modalDelete,
+	profileAvatarButton,
+	modalAvatar,
+	avatarSubmit,
+	profileAvatar,
+	initialCards,
 } from '../utils/constants.js';
 
-const api = new API({ baseUrl, authorization });
+import FormValidator from '../components/FormValidator.js';
 
-// Аватар
-const handleAvatarFormSubmit = (formValues) => {
-	return api.editUserAvatar(formValues).then((user) => profile.setUserAvatar(user));
-};
+import Section from '../components/Section.js';
+import ModalWithImage from '../components/PopupWithImage.js';
+import ModalWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
+import ModalConfirm from '../components/PopupWithConfirm.js';
 
-const avatarPopup = new PopupWithForm(popupEditAvatar, handleAvatarFormSubmit);
+// Form Validation
+const modalProfileFormValidator = new FormValidator(popupParameter, modalEdit);
+modalProfileFormValidator.enableValidation();
 
-const renderAvatarPopup = () => {
-	popupButtonAvatar.disabled = true;
-	avatarValidator.clearError();
-	popupInputAvatarLink.value = '';
-	popupButtonAvatar.classList.add('popup__button_disabled');
-	avatarPopup.open();
-};
+const modalCardFormValidator = new FormValidator(popupParameter, modalAdd);
+modalCardFormValidator.enableValidation();
 
-// Профиль
-const profile = new UserInfo(profileName, profileJob, profileAvatar);
+const modalAvatarFormValidator = new FormValidator(popupParameter, modalAvatar);
+modalAvatarFormValidator.enableValidation();
 
-let initialUserId;
+// Api
+const api = new Api({
+	url: 'https://mesto.nomoreparties.co/v1/cohort-16',
+	headers: {
+		authorization: '4a48037a-5d1b-4b03-8646-b4d3a5383564',
+		'Content-Type': 'application/json',
+	},
+});
 
-function setInitialUserId(user) {
-	initialUserId = user._id;
-}
+// Create Modal with Image
+const modalImageFull = new ModalWithImage(modalImage);
 
-function setInitialUser({ avatar, name, about }) {
-	profile.setUserInfo({ name, about });
-	profile.setUserAvatar({ avatar });
-}
+// User Information
+const userProfile = new UserInfo({
+	name: profileName,
+	about: profileJob,
+	avatar: profileAvatar,
+});
 
-api
-	.getInitialUserInfo()
-	.then((user) => {
-		setInitialUserId(user);
-		setInitialUser(user);
+// Get User Data & Cards from Server
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+	.then((values) => {
+		const [userData, items] = values;
+		userProfile.setUserData(userData.name, userData.about, userData._id, userData.avatar);
+		const initialCardList = new Section(
+			{
+				items: items,
+				renderer: (item) => {
+					const card = new Card(
+						{
+							data: item,
+							handleCardClick: globalHandleCardClick,
+							handleLikeClick: globalHandleLikeCardClick,
+							handleDeleteButtonClick: globalHandleDeleteCardClick,
+						},
+						userProfile.getUserId(),
+						'#template-card',
+					);
+					const cardElement = card.generateCard();
+					initialCardList.setItem(cardElement);
+				},
+			},
+			'.elements__container',
+		);
+		initialCardList.renderItems();
 	})
 	.catch((err) => {
 		console.log(err);
 	});
 
-const handleProfileFormSubmit = (formValues) => {
-	return api.editUserInfo(formValues).then((user) => profile.setUserInfo(user));
+// Open Modal Image
+const globalHandleCardClick = (data) => {
+	modalImageFull.open(data);
 };
 
-const profilePopup = new PopupWithForm(popupEdit, handleProfileFormSubmit);
-
-const renderProfilePopup = () => {
-	const { username, description } = profile.getUserInfo();
-	nameInput.value = username;
-	jobInput.value = description;
-
-	profileValidator.clearError();
-	popupButtonEdit.classList.remove('popup__button_disabled');
-
-	const event = new Event('input');
-	nameInput.dispatchEvent(event);
-	jobInput.dispatchEvent(event);
-
-	profilePopup.open();
+// Like & Dislike Card
+const globalHandleLikeCardClick = (card) => {
+	if (card.isLiked()) {
+		api
+			.dislikeCard(card.id())
+			.then((data) => {
+				card.setLikesInfo(data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+	else {
+		api
+			.likeCard(card.id())
+			.then((data) => {
+				card.setLikesInfo(data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
 };
 
-// Инициализация картинок
-const card = (cardItem) =>
-	new Card(cardItem, '#template-card', api, {
-		cardUserId: cardItem.owner._id,
-		initialUserId: initialUserId,
-		renderConfirmPopup: renderConfirmPopup,
-		renderImgPopup: renderImgPopup,
+// Delete Card
+const globalHandleDeleteCardClick = (card) => {
+	modalWithDelete.open();
+	modalWithDelete.handlerSubmit(() => {
+		modalWithDelete.loading(true);
+		api
+			.deleteCard(card.id())
+			.then((data) => {
+				card.deleteElement(data);
+				modalWithDelete.close();
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(() => {
+				modalWithDelete.loading(false);
+			});
 	});
+};
 
-const renderInitialCards = (cardList) => {
-	const initialCardList = new Section(
+// Render New Card
+const renderCard = (item) => {
+	const card = new Card(
 		{
-			items: cardList,
-			renderer: (item) => {
-				const cardElement = card(item).generateCard();
-				initialCardList.addItem(cardElement);
-			},
+			data: item,
+			handleCardClick: globalHandleCardClick,
+			handleLikeClick: globalHandleLikeCardClick,
+			handleDeleteButtonClick: globalHandleDeleteCardClick,
 		},
-		cardContainer,
+		userProfile.getUserId(),
+		'#template-card',
 	);
-
-	return initialCardList;
+	const cardElement = card.generateCard();
+	addCardsList.addItem(cardElement);
+	return card;
 };
 
-api
-	.getInitialCards()
-	.then((cardList) => Promise.all(cardList))
-	.then(renderInitialCards)
-	.then((initialCardList) => initialCardList.renderItems())
-	.catch((err) => {
-		console.log(err)
-	})
+// Section for Cards
+const addCardsList = new Section(
+	{
+		items: initialCards,
+	},
+	'.elements__container',
+);
 
+// Modal for Adding Cards
+const modalAddPlace = new ModalWithForm(
+	{
+		handleFormSubmit: (item) => {
+			modalAddPlace.loading(true);
+			api
+				.postNewCard(item)
+				.then((item) => {
+					renderCard(item);
+					modalAddPlace.close();
+				})
+				.catch((err) => console.log(err))
+				.finally(() => {
+					modalAddPlace.loading(false);
+				});
+		},
+	},
+	modalAdd,
+);
 
-// Создать карточку
-const addUserCard = (card, container) => {
-	container.prepend(card);
-};
+// Modal for Updating User Profile
+const modalEditProfile = new ModalWithForm(
+	{
+		handleFormSubmit: ({ name, about }) => {
+			modalEditProfile.loading(true);
+			api
+				.setUserInfo({
+					name: name,
+					about: about,
+				})
+				.then((res) => {
+					userProfile.setUserData(res.name, res.about, res._id, res.avatar);
+					modalEditProfile.close();
+				})
+				.catch((err) => console.log(err))
+				.finally(() => {
+					modalEditProfile.loading(false);
+				});
+		},
+	},
+	modalEdit,
+);
 
-const renderUserCard = (item) => {
-	const cardElement = card(item).generateCard();
-	addUserCard(cardElement, cardContainer);
-};
+// Modal for Updating User Avatar
+const modalAvatarForm = new ModalWithForm(
+	{
+		handleFormSubmit: ({ avatar }) => {
+			modalAvatarForm.loading(true);
+			api
+				.setUserAvatar({
+					avatar: avatar,
+				})
+				.then((res) => {
+					userProfile.setUserData(res.name, res.about, res._id, res.avatar);
+					modalAvatarForm.close();
+				})
+				.catch((err) => console.log(err))
+				.finally(() => {
+					modalAvatarForm.loading(false);
+				});
+		},
+	},
+	modalAvatar,
+);
 
-const handleCardFormSubmit = (formValues) => {
-	return api.postUserCard(formValues).then(renderUserCard);
-};
+// Modal with Delete Confirmation
+const modalWithDelete = new ModalConfirm(modalDelete);
 
-const cardPopup = new PopupWithForm(popupAddCard, handleCardFormSubmit);
+// Event Listeners
+modalImageFull.setEventListeners();
+modalAddPlace.setEventListeners();
+modalEditProfile.setEventListeners();
+modalWithDelete.setEventListeners();
+modalAvatarForm.setEventListeners();
 
-const renderCardPopup = () => {
-	popupButtonAddCard.disabled = true;
-	popupButtonAddCard.classList.add('popup__button_disabled');
-	popupInputNewCard.value = '';
-	popupInputNewCardLink.value = '';
-	cardValidator.clearError();
-	cardPopup.open();
-};
+openModalAdd.addEventListener('click', () => {
+	modalAddPlace.open();
+	modalCardFormValidator.hideAllErrors();
+	modalCardFormValidator.removeButtonActive(modalAddSave);
+});
 
-// Попат с зумом картинки
-const imgPopup = new PopupWithImage(popupZoomCard);
+openModalEdit.addEventListener('click', () => {
+	const profileInfo = userProfile.getUserData();
 
-const renderImgPopup = ({ link, name }) => {
-	imgPopup.open({ link, name });
-};
+	nameInput.value = profileInfo.name;
+	jobInput.value = profileInfo.about;
 
-// Удаление карточки
-const confirmPopup = new PopupWithConfirm(popupDeleteCard, popupButtonConfirm);
+	modalProfileFormValidator.hideAllErrors();
+	modalProfileFormValidator.addButtonActive(modalEditSave);
+	modalEditProfile.open();
+});
 
-const renderConfirmPopup = (callback) => {
-	confirmPopup.open(callback);
-};
-
-// Валидация форм
-const profileValidator = new FormValidator(popupParameter, popupFormEditProfile);
-const cardValidator = new FormValidator(popupParameter, popupFormCardNew);
-const avatarValidator = new FormValidator(popupParameter, popupFormAvatar);
-
-// Слушатели
-profileButtonAdd.addEventListener('click', renderCardPopup);
-profileButtonEdit.addEventListener('click', renderProfilePopup);
-profileButtonAvatar.addEventListener('click', renderAvatarPopup);
-
-// Вызов функций
-profileValidator.enableValidation();
-cardValidator.enableValidation();
-avatarValidator.enableValidation();
+profileAvatarButton.addEventListener('click', () => {
+	modalAvatarForm.open();
+	modalAvatarFormValidator.hideAllErrors();
+	modalAvatarFormValidator.removeButtonActive(avatarSubmit);
+});

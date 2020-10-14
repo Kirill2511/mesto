@@ -1,125 +1,89 @@
 export default class Card {
-  constructor ({ link, name, _id, likes }, cardSelector, api, { cardUserId, initialUserId, renderConfirmPopup, renderImgPopup }) {
-    this._link = link
-    this._name = name
-    this._cardId = _id
-    this._likes = likes
-    this._cardSelector = cardSelector
-    this._api = api
-    this._cardUserId = cardUserId
-    this._initialUserId = initialUserId
-    this._renderConfirmPopup = renderConfirmPopup
-    this._renderImgPopup = renderImgPopup
+	constructor({ data, handleCardClick, handleLikeClick, handleDeleteButtonClick }, userId, cardSelector) {
+		this._userId = userId;
+		this._name = data.name;
+		this._link = data.link;
+		this._alt = data.alt;
+		this._likes = data.likes;
+		this._ownerId = data.owner._id;
+		this._cardId = data._id;
+		this._handleCardClick = handleCardClick;
+		this._handleLikeClick = handleLikeClick;
+		this._handleDeleteButtonClick = handleDeleteButtonClick.bind(this);
+		this._cardSelector = cardSelector;
+	}
 
-    this._handleCardClick = this._handleCardClick.bind(this)
-    this._handleLikeButton = this._handleLikeButton.bind(this)
-    this._handleDeleteButton = this._handleDeleteButton.bind(this)
-  }
+	_getLikeCount() {
+		const likesCount = this._likes === undefined || this._likes == null ? 0 : this._likes.length;
+		this._element.querySelector('.element__like-counter').textContent = likesCount;
+		if (this.isLiked()) {
+			this._element.querySelector('.element__like-button').classList.add('element__like-button_active');
+		}
+		else {
+			this._element.querySelector('.element__like-button').classList.remove('element__like-button_active');
+		}
+	}
 
-  // Вернуть разметку
-  _getTemplate () {
-    const cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true)
+	isLiked() {
+		return Boolean(this._likes.find((item) => item._id === this._userId));
+	}
 
-    this._card = cardElement
-  }
+	id() {
+		return this._cardId;
+	}
 
-  // Взять константы
-  _getConst () {
-    this._buttonLike = this._card.querySelector('.element__heart')
-    this._image = this._card.querySelector('.element__image')
-    this._imgName = this._card.querySelector('.element__title')
-    this._countLikes = this._card.querySelector('.card__count-likes')
-  }
+	setLikesInfo(data) {
+		this._likes = data.likes;
+		this._getLikeCount();
+	}
 
-  _handleCardClick () {
-    this._renderImgPopup({
-      link: this._link,
-      name: this._name
-    })
-  }
+	_getTemplate() {
+		const cardElement = document.querySelector(this._cardSelector).content.querySelector('.element').cloneNode(true);
 
-  // Поставить лайк
-  _handleLikeButton () {
-    if (!this._buttonLike.classList.contains('element__heart_active')) { // +
-      this._api.putLike(this._cardId)
-        .then(item => {
-          this._countLikes.textContent = item.likes.length
-          this._buttonLike.classList.toggle('element__heart_active') // +
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    } else {
-      this._api.deleteLike(this._cardId)
-        .then(item => {
-          this._countLikes.textContent = item.likes.length
-          this._buttonLike.classList.toggle('element__heart_active') // +
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-  }
+		this._card = cardElement;
+	}
 
-  // Активировать лайк
-  _activateLike () {
-    this._likes.forEach(item => {
-      if (item._id === this._initialUserId) {
-        this._buttonLike.classList.add('element__heart_active') // +
-      }
-    })
-  }
+	_renderButtons() {
+		if (this._ownerId === this._userId) {
+			this._element.querySelector('.element__delete-button').classList.add('element__delete_invisible');
+		}
+		else {
+			this._element.querySelector('.element__delete-button').classList.remove('element__delete_invisible');
+		}
+	}
 
-  // Установить слушатели событий
-  _setEventListeners () {
-    this._buttonLike.addEventListener('click', this._handleLikeButton)
-    this._image.addEventListener('click', this._handleCardClick)
-  }
+	generateCard() {
+		this._element = this._getTemplate();
+		this._likeButton = this._element.querySelector('.element__heart');
+		this._elementsCard = this._element.querySelector('.element');
+		this._image = this._element.querySelector('.element__image');
+		this._imageCardName = this._element.querySelector('.element__title');
+		this._image.src = this._link;
+		this._imageCardName.textContent = this._name;
+		this._image.alt = this._name;
+		this._getLikeCount();
+		this._renderButtons();
+		this._setEventListeners();
+		return this._element;
+	}
 
-  // Удалить карточку
-  _deleteComponent () {
-    if (this._cardUserId === this._initialUserId) {
-      this._buttonDelete = this._card.querySelector('.element__delete')
-      this._buttonDelete.classList.remove('element__delete_invisible')
-      this._buttonDelete.addEventListener('click', this._handleDeleteButton)
-    }
-  }
+	deleteElement() {
+		this._element.remove();
+		this._element = null;
+	}
 
-  _deleteCard () {
-    this._api.deleteCard(this._cardId)
-      .then(() => {
-        this._buttonLike.removeEventListener('click', this._handleLikeButton)
-        this._buttonDelete.removeEventListener('click', this._handleDeleteButton)
-        this._image.removeEventListener('click', this._handleCardClick)
-
-        this._buttonDelete.closest('.element').remove()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-
-  _handleDeleteButton () {
-    this._renderConfirmPopup(this._deleteCard.bind(this))
-  }
-
-  // Подготовить карточку к публикации
-  generateCard () {
-    this._getTemplate()
-    this._getConst()
-    this._deleteComponent()
-    this._setEventListeners()
-    this._activateLike()
-
-    this._image.src = this._link
-    this._image.alt = this._name
-    this._imgName.textContent = this._name
-    this._countLikes.textContent = this._likes.length
-
-    return this._card
-  }
+	_setEventListeners() {
+		this._image.addEventListener('click', () => {
+			this._handleCardClick({
+				link: this._link,
+				name: this._name,
+			});
+		});
+		this._element.querySelector('.element__heart').addEventListener('click', () => {
+			this._handleLikeClick(this);
+		});
+		this._element.querySelector('.element__delete').addEventListener('click', () => {
+			this._handleDeleteButtonClick(this);
+		});
+	}
 }
