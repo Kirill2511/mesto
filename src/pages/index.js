@@ -1,23 +1,23 @@
-// import './index.css';
+import './index.css';
 import Card from '../components/Card.js';
 
 import {
 	popupParameter,
-	modalEdit,
-	modalImage,
-	modalAdd,
-	openModalEdit,
-	openModalAdd,
+	popupEdit,
+	popupZoomCard,
+	popupAddCard,
+	profileButtonEdit,
+	profileButtonAdd,
 	nameInput,
 	jobInput,
 	profileJob,
 	profileName,
-	modalAddSave,
-	modalEditSave,
-	modalDelete,
-	profileAvatarButton,
-	modalAvatar,
-	avatarSubmit,
+	popupButtonAddCard,
+	popupButtonEdit,
+	popupDeleteCard,
+	profileButtonAvatar,
+	popupEditAvatar,
+	popupButtonAvatar,
 	profileAvatar,
 	initialCards,
 } from '../utils/constants.js';
@@ -25,21 +25,21 @@ import {
 import FormValidator from '../components/FormValidator.js';
 
 import Section from '../components/Section.js';
-import ModalWithImage from '../components/PopupWithImage.js';
-import ModalWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-import ModalConfirm from '../components/PopupWithConfirm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
-// Form Validation
-const modalProfileFormValidator = new FormValidator(popupParameter, modalEdit);
-modalProfileFormValidator.enableValidation();
+// Валидация форм
+const profileValidator = new FormValidator(popupParameter, popupEdit);
+profileValidator.enableValidation();
 
-const modalCardFormValidator = new FormValidator(popupParameter, modalAdd);
-modalCardFormValidator.enableValidation();
+const cardValidator = new FormValidator(popupParameter, popupAddCard);
+cardValidator.enableValidation();
 
-const modalAvatarFormValidator = new FormValidator(popupParameter, modalAvatar);
-modalAvatarFormValidator.enableValidation();
+const avatarValidator = new FormValidator(popupParameter, popupEditAvatar);
+avatarValidator.enableValidation();
 
 // Api
 const api = new Api({
@@ -50,17 +50,17 @@ const api = new Api({
 	},
 });
 
-// Create Modal with Image
-const modalImageFull = new ModalWithImage(modalImage);
+// Создание попат зума
+const imgPopup = new PopupWithImage(popupZoomCard);
 
-// User Information
+// Информация о пользователе
 const userProfile = new UserInfo({
 	name: profileName,
 	about: profileJob,
 	avatar: profileAvatar,
 });
 
-// Get User Data & Cards from Server
+// Получаем информацию с сервера
 Promise.all([api.getUserInfo(), api.getInitialCards()])
 	.then((values) => {
 		const [userData, items] = values;
@@ -91,12 +91,12 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 		console.log(err);
 	});
 
-// Open Modal Image
+// Открытие попата зума
 const globalHandleCardClick = (data) => {
-	modalImageFull.open(data);
+	imgPopup.open(data);
 };
 
-// Like & Dislike Card
+// Лайк и дизлайк
 const globalHandleLikeCardClick = (card) => {
 	if (card.isLiked()) {
 		api
@@ -120,27 +120,27 @@ const globalHandleLikeCardClick = (card) => {
 	}
 };
 
-// Delete Card
+// Удаление карточки
 const globalHandleDeleteCardClick = (card) => {
-	modalWithDelete.open();
-	modalWithDelete.handlerSubmit(() => {
-		modalWithDelete.loading(true);
+	confirmPopup.open();
+	confirmPopup.handlerSubmit(() => {
+		confirmPopup.loading(true);
 		api
 			.deleteCard(card.id())
 			.then((data) => {
 				card.deleteElement(data);
-				modalWithDelete.close();
+				confirmPopup.close();
 			})
 			.catch((err) => {
 				console.log(err);
 			})
 			.finally(() => {
-				modalWithDelete.loading(false);
+				confirmPopup.loading(false);
 			});
 	});
 };
 
-// Render New Card
+// Рендер новой карточки
 const renderCard = (item) => {
 	const card = new Card(
 		{
@@ -157,7 +157,7 @@ const renderCard = (item) => {
 	return card;
 };
 
-// Section for Cards
+// Раздел для карточек
 const addCardsList = new Section(
 	{
 		items: initialCards,
@@ -165,31 +165,31 @@ const addCardsList = new Section(
 	'.elements__container',
 );
 
-// Modal for Adding Cards
-const modalAddPlace = new ModalWithForm(
+// Попат новой карточки
+const cardPopup = new PopupWithForm(
 	{
 		handleFormSubmit: (item) => {
-			modalAddPlace.loading(true);
+			cardPopup.loading(true);
 			api
 				.postNewCard(item)
 				.then((item) => {
 					renderCard(item);
-					modalAddPlace.close();
+					cardPopup.close();
 				})
 				.catch((err) => console.log(err))
 				.finally(() => {
-					modalAddPlace.loading(false);
+					cardPopup.loading(false);
 				});
 		},
 	},
-	modalAdd,
+	popupAddCard,
 );
 
-// Modal for Updating User Profile
-const modalEditProfile = new ModalWithForm(
+// Попат редактирования информамции
+const profilePopupEdit = new PopupWithForm(
 	{
 		handleFormSubmit: ({ name, about }) => {
-			modalEditProfile.loading(true);
+			profilePopupEdit.loading(true);
 			api
 				.setUserInfo({
 					name: name,
@@ -197,68 +197,68 @@ const modalEditProfile = new ModalWithForm(
 				})
 				.then((res) => {
 					userProfile.setUserData(res.name, res.about, res._id, res.avatar);
-					modalEditProfile.close();
+					profilePopupEdit.close();
 				})
 				.catch((err) => console.log(err))
 				.finally(() => {
-					modalEditProfile.loading(false);
+					profilePopupEdit.loading(false);
 				});
 		},
 	},
-	modalEdit,
+	popupEdit,
 );
 
-// Modal for Updating User Avatar
-const modalAvatarForm = new ModalWithForm(
+// Попат обновление аватара
+const avatarPopup = new PopupWithForm(
 	{
 		handleFormSubmit: ({ avatar }) => {
-			modalAvatarForm.loading(true);
+			avatarPopup.loading(true);
 			api
 				.setUserAvatar({
 					avatar: avatar,
 				})
 				.then((res) => {
 					userProfile.setUserData(res.name, res.about, res._id, res.avatar);
-					modalAvatarForm.close();
+					avatarPopup.close();
 				})
 				.catch((err) => console.log(err))
 				.finally(() => {
-					modalAvatarForm.loading(false);
+					avatarPopup.loading(false);
 				});
 		},
 	},
-	modalAvatar,
+	popupEditAvatar,
 );
 
-// Modal with Delete Confirmation
-const modalWithDelete = new ModalConfirm(modalDelete);
+// Попат подтверждения удаления
+const confirmPopup = new PopupWithConfirm(popupDeleteCard);
 
-// Event Listeners
-modalImageFull.setEventListeners();
-modalAddPlace.setEventListeners();
-modalEditProfile.setEventListeners();
-modalWithDelete.setEventListeners();
-modalAvatarForm.setEventListeners();
+// Слушатели
+imgPopup.setEventListeners();
+cardPopup.setEventListeners();
+profilePopupEdit.setEventListeners();
+confirmPopup.setEventListeners();
+avatarPopup.setEventListeners();
 
-openModalAdd.addEventListener('click', () => {
-	modalAddPlace.open();
-	modalCardFormValidator.hideAllErrors();
-	modalCardFormValidator.removeButtonActive(modalAddSave);
+profileButtonAdd.addEventListener('click', () => {
+	cardPopup.open();
+	cardValidator.hideAllErrors();
+	cardValidator.removeButtonActive(popupButtonAddCard);
 });
 
-openModalEdit.addEventListener('click', () => {
+profileButtonEdit.addEventListener('click', () => {
 	const profileInfo = userProfile.getUserData();
 
 	nameInput.value = profileInfo.name;
 	jobInput.value = profileInfo.about;
 
-	modalProfileFormValidator.hideAllErrors();
-	modalProfileFormValidator.addButtonActive(modalEditSave);
-	modalEditProfile.open();
+	profileValidator.hideAllErrors();
+	profileValidator.addButtonActive(popupButtonEdit);
+	profilePopupEdit.open();
 });
 
-profileAvatarButton.addEventListener('click', () => {
-	modalAvatarForm.open();
-	modalAvatarFormValidator.hideAllErrors();
-	modalAvatarFormValidator.removeButtonActive(avatarSubmit);
+profileButtonAvatar.addEventListener('click', () => {
+	avatarPopup.open();
+	avatarValidator.hideAllErrors();
+	avatarValidator.removeButtonActive(popupButtonAvatar);
 });

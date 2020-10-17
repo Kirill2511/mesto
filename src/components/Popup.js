@@ -1,8 +1,8 @@
 export default class Popup {
-	constructor(modalSelector) {
-		this._modal = modalSelector;
-		this._closeButton = this._modal.querySelector('.popup__close-icon');
-		this._submitButton = this._modal.querySelector('.popup__button');
+	constructor(popupSelector) {
+		this._popupSelector = popupSelector;
+		this._closeButton = this._popupSelector.querySelector('.popup__close-icon');
+		this._submitButton = this._popupSelector.querySelector('.popup__button');
 		this._handlerEscClose = this._handlerEscClose.bind(this);
 	}
 
@@ -32,21 +32,21 @@ export default class Popup {
 	}
 
 	open() {
-		this._modal.classList.add('modal_opened');
+		this._popupSelector.classList.add('popup_opened');
 		document.addEventListener('keydown', this._handlerEscClose);
 	}
 
 	close() {
-		this._modal.classList.remove('modal_opened');
+		this._popupSelector.classList.remove('popup_opened');
 		document.removeEventListener('keydown', this._handlerEscClose);
 	}
 
 	setEventListeners() {
-		this._modal.addEventListener('click', this._closeByOverlay.bind(this));
+		this._popupSelector.addEventListener('click', this._closeByOverlay.bind(this));
 		this._closeButton.addEventListener('click', this._handlerCloseButton.bind(this));
 	}
 
 	removeEventListeners() {
-		this._modal.removeEventListener('click', this._closeByOverlay.bind(this));
+		this._popupSelector.removeEventListener('click', this._closeByOverlay.bind(this));
 	}
 }

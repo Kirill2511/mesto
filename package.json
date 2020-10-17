@@ -1,7 +1,7 @@
 {
   "name": "mesto",
   "version": "1.0.0",
-  "description": "Этот проект на тему \"базовый JavaScript и работа с браузером\".\r ------\r ### Темы курса, которые были включены в проект:\r 1. JS\r 2. DOM\r 3. Debugging\r 4. Git",
+  "description": "",
   "main": "index.js",
   "dependencies": {
     "core-js": "^3.6.5"

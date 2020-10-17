@@ -5,7 +5,6 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
   <title>Место</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="page">
@@ -46,7 +45,6 @@
           maxlength="40"
           minlength="2"
           name="name"
-          pattern="[A-Za-zА-Яа-яЁё]*[A-Za-zА-Яа-яЁё]+[A-Za-zА-Яа-яЁё\s\-]*[A-Za-zА-Яа-яЁё]+[A-Za-zА-Яа-яЁё\s]*"
           placeholder="Имя"
           required
           type="text"
@@ -60,7 +58,6 @@
           maxlength="200"
           minlength="2"
           name="about"
-          pattern="[A-Za-zА-Яа-яЁё]*[A-Za-zА-Яа-яЁё]+[A-Za-zА-Яа-яЁё\s\-]*[A-Za-zА-Яа-яЁё]+[A-Za-zА-Яа-яЁё\s]*"
           placeholder="Обо мне"
           required
           type="text"
@@ -143,7 +140,9 @@
   <div class="popup__container">
     <button aria-label="Закрыть" class="popup__close-icon popup__close" type="button"></button>
     <h2 class="popup__title">Вы уверены?</h2>
-    <button class="popup__button popup__button_card-delete" type="submit">Да</button>
+    <form class="popup__fields popup__delete-form">
+      <button aria-label="Да" class="popup__button popup__button_card-delete" name="submit" type="submit">Да</button>
+    </form>
   </div>
 </div>
 
@@ -165,6 +164,5 @@
     </div>
   </li>
 </template>
-<script type="module" src="./pages/index.js"></script>
 </body>
 </html>

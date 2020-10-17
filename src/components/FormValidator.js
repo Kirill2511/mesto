@@ -75,8 +75,8 @@ export default class FormValidator {
 	}
 
 	hideAllErrors() {
-		const inputElements = Array.from(this._formElement.querySelectorAll('.modal__text'));
-		const errorElement = Array.from(this._formElement.querySelectorAll('.modal__input-error'));
+		const inputElements = Array.from(this._formElement.querySelectorAll('.popup__item'));
+		const errorElement = Array.from(this._formElement.querySelectorAll('.popup__input-error'));
 
 		inputElements.forEach((input) => {
 			input.classList.remove(this._inputErrorClass);

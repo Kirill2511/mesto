@@ -29,7 +29,7 @@ export default class Api {
 			method: 'POST',
 			headers: this.headers,
 			body: JSON.stringify({
-				name: data.title,
+				name: data.place,
 				link: data.link,
 			}),
 		}).then((res) => this._getResponseData(res));
