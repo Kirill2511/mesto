@@ -9,6 +9,7 @@
 @import url(__card-about/popup__card-about.css);
 @import url(__input-error/popup__input-error.css);
 @import url(__label/popup__label.css);
+@import url(__delete-form/popup__delete-form.css);
 
 .popup {
   display: flex;

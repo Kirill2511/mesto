@@ -25,6 +25,7 @@
 }
 
 .profile__edit-avatar:hover {
+  cursor: pointer;
   opacity: 1;
 }
 
