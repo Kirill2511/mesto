@@ -1,17 +1,27 @@
-# Проект 4: Место
+# Проектная работа: "Mesto". Создана в рамках учебы в [Яндекс.Практикум](https://praktikum.yandex.ru/) на курсе ["Веб-разработчик"](https://praktikum.yandex.ru/web/). 
 
-Этот проект на тему "базовый JavaScript и работа с браузером".
-------
-### Темы курса, которые были включены в проект:
-1. JS
-2. DOM
-3. Debugging
-4. Git 
+## Описание: 
 
-### Сайт был построен с использованием этих языков:
-- HTML
-- CSS
-- JS
+"Mesto" - это интерактивная страница, где пользователи могут делиться фотографиями. Она создана в рамках прохождения 4-9 спринтов курса. В работе применены расширенные возможности HTML и CSS, JavaScript (Асинхронный JS, ООП в интерфейсах, работа с DOM API и Fetch API), проверка данных форм, git, Webpack. 
 
-#### Ссылка на проект Github:
-https://kirill2511.github.io/mesto/index.html
+
+## Функционал: 
+
+* Добавление и удаление фотографии 
+* "Лайк" для фотографии 
+* Редактирование профиля пользователя 
+* Данные хранятся на сервере и загружаются с сервера 
+* Валидация форм на стороне клиента 
+
+## Технологии: 
+
+* Flexbox
+* Grid Layout
+* Positioning Elements
+* Animation and Transform using CSS
+* BEM Methodology
+* File Structure and File Paths (Nested BEM)
+* Git
+* JavaScript (Asynchronous JS, OOP, DOM API, Fetch API) 
+* Client-side form validation 
+* Webpack
